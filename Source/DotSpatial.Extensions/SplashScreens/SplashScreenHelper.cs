@@ -22,7 +22,7 @@ namespace DotSpatial.Extensions.SplashScreens
         public static ISplashScreenManager GetSplashScreenManager()
         {
             // This is a specific directory where a splash screen may be located.
-            Assembly asm = Assembly.GetEntryAssembly();
+            Assembly asm = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
             var directories = new List<string>
             {
                 AppDomain.CurrentDomain.BaseDirectory + "Application Extensions",
