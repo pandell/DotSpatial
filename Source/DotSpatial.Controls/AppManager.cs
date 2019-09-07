@@ -128,7 +128,7 @@ namespace DotSpatial.Controls
                 else
                 {
                     // by placing data in the AppData location, ClickOnce appications won't be subject to limits on size.
-                    Assembly asm = Assembly.GetEntryAssembly();
+                    Assembly asm = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
                     absolutePathToExtensions = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), asm.ManifestModule.Name, ExtensionsDirectory);
                 }
 
@@ -602,7 +602,7 @@ namespace DotSpatial.Controls
             var catalog = new AggregateCatalog();
 
             // Add main exe
-            Assembly mainExe = Assembly.GetEntryAssembly();
+            Assembly mainExe = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
             if (mainExe != null)
             {
                 // if there is a managed entry assembly running, add it.
