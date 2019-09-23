@@ -15,7 +15,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Linq;
 using DotSpatial.Projections.Nad;
 using DotSpatial.Projections.Transforms;
 
@@ -70,7 +69,7 @@ namespace DotSpatial.Projections
 
                     bool found = false;
                     // For GSB tables, we need to check for the appropriate sub-table
-                    if (table.SubGrids != null && table.SubGrids.Any())
+                    if (table.SubGrids != null && table.SubGrids.Count > 1)
                     {
                         foreach (NadTable subGrid in table.SubGrids)
                         {
