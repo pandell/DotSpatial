@@ -5,7 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using DotSpatial.NTSExtension;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
+
+#pragma warning disable 108
+#pragma warning disable 114
+#pragma warning disable 618
 
 namespace DotSpatial.Symbology
 {
@@ -55,7 +59,7 @@ namespace DotSpatial.Symbology
         public DrawWindow(Envelope env)
             : base(env)
         {
-            _geographicView = env.Clone();
+            _geographicView = env.Copy();
         }
 
         #endregion
@@ -91,7 +95,7 @@ namespace DotSpatial.Symbology
         /// Replaces the inherited clone in order to make a copy of the DrawWindow.
         /// </summary>
         /// <returns>A copy of the DrawWindow.</returns>
-        public new object Clone()
+        public object Clone()
         {
             return Copy();
         }
@@ -102,7 +106,7 @@ namespace DotSpatial.Symbology
         /// <returns>A copy of the DrawWindow.</returns>
         public DrawWindow Copy()
         {
-            Envelope env = base.Clone();
+            Envelope env = base.Copy();
             return new DrawWindow(env)
             {
                 GeographicView = _geographicView

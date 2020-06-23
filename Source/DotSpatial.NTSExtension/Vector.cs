@@ -2,8 +2,10 @@
 // Licensed under the MIT license. See License.txt file in the project root for full license information.
 
 using System;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
+
+#pragma warning disable 660 // 'Vector' defines operator == or operator != but does not override Object.Equals() - defined in base class CoordinateZ
+#pragma warning disable 661 // 'Vector' defines operator == or operator != but does not override Object.GetHashCode() - defined in base class CoordinateZ
 
 namespace DotSpatial.NTSExtension
 {
@@ -11,7 +13,7 @@ namespace DotSpatial.NTSExtension
     /// Contains a magnitude and direction
     /// Supports more fundamental calculations than LineSegment, rather than topological functions
     /// </summary>
-    public class Vector : Coordinate
+    public class Vector : CoordinateZ
     {
         #region  Constructors
 
@@ -488,31 +490,6 @@ namespace DotSpatial.NTSExtension
         }
 
         /// <summary>
-        /// Checks first to make sure that both objects are vectors. If they are,
-        /// then it checks to determine whether or not the X, Y and Z values are equal.
-        /// </summary>
-        /// <param name="vect">The object to test against</param>
-        /// <returns>True if the </returns>
-        public override bool Equals(object vect)
-        {
-            if (vect == null) return false;
-
-            Vector v = vect as Vector;
-            if (v == null) return false;
-
-            return (X == v.X) && (Y == v.Y) && (Z == v.Z);
-        }
-
-        /// <summary>
-        /// Returns the hash code.. or something
-        /// </summary>
-        /// <returns>A hash code I guess</returns>
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        /// <summary>
         /// Compares the values of each element, and if all the elements are equal, returns true.
         /// </summary>
         /// <param name="v">The vector to compare against this vector.</param>
@@ -608,7 +585,7 @@ namespace DotSpatial.NTSExtension
         /// <returns>an ICoordinate, where the X, Y and Z value match the values in this vector</returns>
         public Coordinate ToCoordinate()
         {
-            return new Coordinate(X, Y, Z);
+            return new CoordinateZ(X, Y, Z);
         }
 
         /// <summary>
@@ -617,7 +594,7 @@ namespace DotSpatial.NTSExtension
         /// <returns>A new segment from this vector, where the StartPoint is 0, 0, 0 and the End Point is the tip of this vector.</returns>
         public LineSegment ToLineSegment()
         {
-            return new LineSegment(new Coordinate(0, 0, 0), ToCoordinate());
+            return new LineSegment(new CoordinateZ(0, 0, 0), ToCoordinate());
         }
 
         /// <summary>
@@ -641,7 +618,7 @@ namespace DotSpatial.NTSExtension
         /// a Point representing the tip of the vector.
         /// </summary>
         /// <returns>A Point representing the tip of the vector.</returns>
-        public IPoint ToPoint()
+        public Point ToPoint()
         {
             return new Point(X, Y, Z);
         }

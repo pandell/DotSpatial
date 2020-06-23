@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net48</TargetFrameworks>
+    <IsPackable>true</IsPackable>
+    <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" /><!-- we are currently unable to use the latest version, see https://github.com/microsoft/msbuild/issues/4704#issuecomment-648967397 -->
+    <ProjectReference Include="../DotSpatial.Extensions/Pandell.DotSpatial.Extensions.csproj" />
+    <ProjectReference Include="../DotSpatial.Symbology.Forms/Pandell.DotSpatial.Symbology.Forms.csproj" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+</Project>

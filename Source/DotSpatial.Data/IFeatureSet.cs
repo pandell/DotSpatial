@@ -4,8 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Data
 {
@@ -55,7 +54,7 @@ namespace DotSpatial.Data
         /// Gets or sets an optional GeometryFactory that can be set to control how the geometries on features are
         /// created. if this is not specified, the default GeometryFactory is used.
         /// </summary>
-        IGeometryFactory FeatureGeometryFactory { get; set; }
+        GeometryFactory FeatureGeometryFactory { get; set; }
 
         /// <summary>
         /// Gets the feature lookup Table itself.
@@ -114,7 +113,7 @@ namespace DotSpatial.Data
         /// </summary>
         /// <param name="geometry">The geometry that is used to create the feature.</param>
         /// <returns>The feature that was added to this featureset</returns>
-        IFeature AddFeature(IGeometry geometry);
+        IFeature AddFeature(Geometry geometry);
 
         /// <summary>
         /// Adds the FID values as a field called FID, but only if the FID field does not already exist.

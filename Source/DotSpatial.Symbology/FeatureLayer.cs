@@ -10,7 +10,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using DotSpatial.Data;
 using DotSpatial.Serialization;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using Msg = DotSpatial.Symbology.SymbologyMessageStrings;
 
 namespace DotSpatial.Symbology

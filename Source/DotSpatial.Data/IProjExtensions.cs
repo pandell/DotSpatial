@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using Point = System.Drawing.Point;
 
 namespace DotSpatial.Data
@@ -48,7 +48,7 @@ namespace DotSpatial.Data
                 y = self.GeographicExtents.MaxY - (y - self.ImageRectangle.Y) * self.GeographicExtents.Height / self.ImageRectangle.Height;
             }
 
-            return new Coordinate(x, y, 0.0);
+            return new CoordinateZM(x, y);
         }
 
         /// <summary>

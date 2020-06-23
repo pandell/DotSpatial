@@ -189,9 +189,6 @@ namespace DotSpatial.Projections
         /// Using BigEndian format. (TODO: This assumption is not true, at least for Beta2007.gsb, which
         /// is in LittleEndian). Reversing the bytes produces garbage. I'll tackle this in the next commit.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
         private static float ReadFloat(BinaryReader br)
         {
             byte[] temp = new byte[4];

@@ -1,11 +1,12 @@
 ﻿// Copyright (c) DotSpatial Team. All rights reserved.
 // Licensed under the MIT license. See License.txt file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using DotSpatial.NTSExtension;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NetTopologySuite.Index;
 
 namespace DotSpatial.Data
@@ -200,6 +201,7 @@ namespace DotSpatial.Data
                 header.Xmax = feature.Geometry.EnvelopeInternal.MaxX;
                 header.Ymin = feature.Geometry.EnvelopeInternal.MinY;
                 header.Ymax = feature.Geometry.EnvelopeInternal.MaxY;
+
                 if (double.IsNaN(feature.Geometry.Coordinates[0].M))
                 {
                     header.ShapeType = ShapeType;
@@ -212,13 +214,19 @@ namespace DotSpatial.Data
                     }
                     else
                     {
-                        header.Zmin = feature.Geometry.EnvelopeInternal.Minimum.Z;
-                        header.Zmax = feature.Geometry.EnvelopeInternal.Maximum.Z;
+                        // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+                        // header.Zmin = feature.Geometry.EnvelopeInternal.Minimum.Z;
+                        // header.Zmax = feature.Geometry.EnvelopeInternal.Maximum.Z;
+                        header.Zmin = double.NaN;
+                        header.Zmax = double.NaN;
                         header.ShapeType = ShapeTypeZ;
                     }
 
-                    header.Mmin = feature.Geometry.EnvelopeInternal.Minimum.M;
-                    header.Mmax = feature.Geometry.EnvelopeInternal.Maximum.M;
+                    // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+                    // header.Mmin = feature.Geometry.EnvelopeInternal.Minimum.M;
+                    // header.Mmax = feature.Geometry.EnvelopeInternal.Maximum.M;
+                    header.Mmin = double.NaN;
+                    header.Mmax = double.NaN;
                 }
 
                 header.ShxLength = 4 + 50;
@@ -276,6 +284,7 @@ namespace DotSpatial.Data
                     header.Xmax = feature.Geometry.EnvelopeInternal.MaxX;
                     header.Ymin = feature.Geometry.EnvelopeInternal.MinY;
                     header.Ymax = feature.Geometry.EnvelopeInternal.MaxY;
+
                     if (double.IsNaN(feature.Geometry.Coordinates[0].M))
                     {
                         header.ShapeType = ShapeType;
@@ -288,13 +297,19 @@ namespace DotSpatial.Data
                         }
                         else
                         {
-                            header.Zmin = feature.Geometry.EnvelopeInternal.Minimum.Z;
-                            header.Zmax = feature.Geometry.EnvelopeInternal.Maximum.Z;
+                            // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+                            // header.Zmin = feature.Geometry.EnvelopeInternal.Minimum.Z;
+                            // header.Zmax = feature.Geometry.EnvelopeInternal.Maximum.Z;
+                            header.Zmin = Double.NaN;
+                            header.Zmax = double.NaN;
                             header.ShapeType = ShapeTypeZ;
                         }
 
-                        header.Mmin = feature.Geometry.EnvelopeInternal.Minimum.M;
-                        header.Mmax = feature.Geometry.EnvelopeInternal.Maximum.M;
+                        // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+                        // header.Mmin = feature.Geometry.EnvelopeInternal.Minimum.M;
+                        // header.Mmax = feature.Geometry.EnvelopeInternal.Maximum.M;
+                        header.Mmin = double.NaN;
+                        header.Mmax = double.NaN;
                     }
 
                     header.ShxLength = 4 + 50;
@@ -419,7 +434,7 @@ namespace DotSpatial.Data
         /// <param name="header">ShapefileHeader of this file.</param>
         /// <param name="geometry">Geometry that gets appended.</param>
         /// <param name="numFeatures">Number of the features in the shapefile including the one getting appended.</param>
-        protected abstract void AppendGeometry(ShapefileHeader header, IGeometry geometry, int numFeatures);
+        protected abstract void AppendGeometry(ShapefileHeader header, Geometry geometry, int numFeatures);
 
         /// <summary>
         /// Conditionally modify attributes as searched in a single pass via client supplied callback.
@@ -522,7 +537,7 @@ namespace DotSpatial.Data
         /// </summary>
         /// <param name="header">Header that gets updated.</param>
         /// <param name="feature">Feature, whose extent gets include into the header extent. </param>
-        protected void UpdateHeader(ShapefileHeader header, IGeometry feature)
+        protected void UpdateHeader(ShapefileHeader header, Geometry feature)
         {
             UpdateHeader(header, feature, true);
         }
@@ -533,7 +548,7 @@ namespace DotSpatial.Data
         /// <param name="header">Header that gets updated.</param>
         /// <param name="feature">Feature, whose extent gets include into the header extent. </param>
         /// <param name="writeHeaderFiles">Indicates whether the headers should be written to file.</param>
-        protected void UpdateHeader(ShapefileHeader header, IGeometry feature, bool writeHeaderFiles)
+        protected void UpdateHeader(ShapefileHeader header, Geometry feature, bool writeHeaderFiles)
         {
             // Update the envelope
             Envelope newExt;
@@ -553,14 +568,24 @@ namespace DotSpatial.Data
                 newExt.ExpandToInclude(feature.EnvelopeInternal);
             }
 
-            header.Xmin = newExt.Minimum.X;
-            header.Ymin = newExt.Minimum.Y;
-            header.Zmin = newExt.Minimum.Z;
-            header.Xmax = newExt.Maximum.X;
-            header.Ymax = newExt.Maximum.Y;
-            header.Zmax = newExt.Maximum.Z;
-            header.Mmin = newExt.Minimum.M; // TODO added by jany_ on nts integration ... is this correct?
-            header.Mmax = newExt.Maximum.M;
+            // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+            // header.Xmin = newExt.Minimum.X;
+            // header.Ymin = newExt.Minimum.Y;
+            // header.Zmin = newExt.Minimum.Z;
+            // header.Xmax = newExt.Maximum.X;
+            // header.Ymax = newExt.Maximum.Y;
+            // header.Zmax = newExt.Maximum.Z;
+            // header.Mmin = newExt.Minimum.M; // TODO added by jany_ on nts integration ... is this correct?
+            // header.Mmax = newExt.Maximum.M;
+            header.Xmin = newExt.MinX;
+            header.Ymin = newExt.MinY;
+            header.Zmin = double.NaN;
+            header.Mmin = double.NaN;
+            header.Xmax = newExt.MaxX;
+            header.Ymax = newExt.MaxY;
+            header.Zmax = double.NaN;
+            header.Mmax = double.NaN;
+
             header.ShxLength = header.ShxLength + 4;
             if (writeHeaderFiles)
             {

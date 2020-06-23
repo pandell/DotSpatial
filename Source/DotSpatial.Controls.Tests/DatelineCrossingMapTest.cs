@@ -6,6 +6,8 @@ using System.Drawing;
 using DotSpatial.Data;
 using NUnit.Framework;
 
+#pragma warning disable 618
+
 namespace DotSpatial.Controls.Tests
 {
     /// <summary>

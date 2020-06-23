@@ -1,9 +1,10 @@
 ﻿// Copyright (c) DotSpatial Team. All rights reserved.
 // Licensed under the MIT license. See License.txt file in the project root for full license information.
 
-using System.Collections;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NetTopologySuite.Index.Quadtree;
+
+#pragma warning disable 108,114
 
 namespace DotSpatial.Data
 {

@@ -3,9 +3,8 @@
 
 using System;
 using System.ComponentModel;
-using DotSpatial.NTSExtension;
 using DotSpatial.Serialization;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Data
 {
@@ -51,7 +50,9 @@ namespace DotSpatial.Data
         /// <param name="env">The Envelope to read the minimum and maximum values from.</param>
         public ExtentMz(Envelope env)
         {
-            SetValues(env.MinX, env.MinY, env.Minimum.M, env.Minimum.Z, env.MaxX, env.MaxY, env.Maximum.M, env.Maximum.Z);
+            // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+            // SetValues(env.MinX, env.MinY, env.Minimum.M, env.Minimum.Z, env.MaxX, env.MaxY, env.Maximum.M, env.Maximum.Z);
+            SetValues(env.MinX, env.MinY, double.NaN, double.NaN, env.MaxX, env.MaxY, double.NaN, double.NaN);
         }
 
         #endregion
@@ -130,17 +131,18 @@ namespace DotSpatial.Data
             return base.Contains(ext);
         }
 
-        /// <summary>
-        /// Tests if this contains the specified envelope. If either element
-        /// does not support M values, then only the default XY contains test is used.
-        /// </summary>
-        /// <param name="env">The envelope to test.</param>
-        /// <returns>True if this contains the given envelope.</returns>
-        public override bool Contains(Envelope env)
-        {
-            if (env.HasZ() && HasZ && (env.Maximum.Z < MinZ || env.Minimum.Z > MaxZ)) return false;
-            return base.Contains(env);
-        }
+        // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+        // /// <summary>
+        // /// Tests if this contains the specified envelope. If either element
+        // /// does not support M values, then only the default XY contains test is used.
+        // /// </summary>
+        // /// <param name="env">The envelope to test.</param>
+        // /// <returns>True if this contains the given envelope.</returns>
+        // public override bool Contains(Envelope env)
+        // {
+        //     if (env.HasZ() && HasZ && (env.Maximum.Z < MinZ || env.Minimum.Z > MaxZ)) return false;
+        //     return base.Contains(env);
+        // }
 
         /// <summary>
         /// Copies from the implementation of IExtent. This checks to see if IExtentM is implemented
@@ -344,21 +346,22 @@ namespace DotSpatial.Data
             return base.Intersects(ext);
         }
 
-        /// <summary>
-        /// Tests with the specified envelope for a collision. If any part of the Z bounds
-        /// are invalid, this will default to the M, X and Y Intersect comparison.
-        /// </summary>
-        /// <param name="env">The envelope to test.</param>
-        /// <returns>Boolean.</returns>
-        public override bool Intersects(Envelope env)
-        {
-            if (!double.IsNaN(env.Minimum.Z) && !double.IsNaN(env.Maximum.Z) && HasZ)
-            {
-                if (env.Maximum.Z < MinZ || env.Minimum.Z > MaxZ) return false;
-            }
-
-            return base.Intersects(env);
-        }
+        // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+        // /// <summary>
+        // /// Tests with the specified envelope for a collision. If any part of the Z bounds
+        // /// are invalid, this will default to the M, X and Y Intersect comparison.
+        // /// </summary>
+        // /// <param name="env">The envelope to test.</param>
+        // /// <returns>Boolean.</returns>
+        // public override bool Intersects(Envelope env)
+        // {
+        //     if (!double.IsNaN(env.Minimum.Z) && !double.IsNaN(env.Maximum.Z) && HasZ)
+        //     {
+        //         if (env.Maximum.Z < MinZ || env.Minimum.Z > MaxZ) return false;
+        //     }
+        //
+        //     return base.Intersects(env);
+        // }
 
         /// <summary>
         /// Since M values are optional, they can be set to an invalid state, which will behave the
@@ -414,21 +417,22 @@ namespace DotSpatial.Data
             return base.Within(ext);
         }
 
-        /// <summary>
-        /// Tests if this envelope is contained by the specified envelope. If either envelope doesn't
-        /// support M then only the XY case will be tested.
-        /// </summary>
-        /// <param name="env">The envelope to compare.</param>
-        /// <returns>Boolean.</returns>
-        public override bool Within(Envelope env)
-        {
-            if (!double.IsNaN(env.Minimum.Z) && !double.IsNaN(env.Maximum.Z) && HasZ)
-            {
-                if (env.Maximum.Z > MinZ || env.Minimum.Z < MaxZ) return false;
-            }
-
-            return base.Within(env);
-        }
+        // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+        // /// <summary>
+        // /// Tests if this envelope is contained by the specified envelope. If either envelope doesn't
+        // /// support M then only the XY case will be tested.
+        // /// </summary>
+        // /// <param name="env">The envelope to compare.</param>
+        // /// <returns>Boolean.</returns>
+        // public override bool Within(Envelope env)
+        // {
+        //     if (!double.IsNaN(env.Minimum.Z) && !double.IsNaN(env.Maximum.Z) && HasZ)
+        //     {
+        //         if (env.Maximum.Z > MinZ || env.Minimum.Z < MaxZ) return false;
+        //     }
+        //
+        //     return base.Within(env);
+        // }
 
         #endregion
     }

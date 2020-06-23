@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using DotSpatial.NTSExtension;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 using NUnit.Framework;
 

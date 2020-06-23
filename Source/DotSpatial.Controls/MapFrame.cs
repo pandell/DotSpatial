@@ -14,7 +14,8 @@ using DotSpatial.Projections;
 using DotSpatial.Projections.Forms;
 using DotSpatial.Serialization;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
+using Point = System.Drawing.Point;
 
 namespace DotSpatial.Controls
 {
@@ -535,13 +536,13 @@ namespace DotSpatial.Controls
         public Coordinate BufferToProj(Point position)
         {
             Envelope view = ViewExtents.ToEnvelope();
-            if (base.ViewExtents == null) return new Coordinate(0, 0);
+            if (base.ViewExtents == null) return new CoordinateZM(0, 0);
             double x = Convert.ToDouble(position.X);
             double y = Convert.ToDouble(position.Y);
             x = (x * view.Width / _width) + view.MinX;
             y = view.MaxY - (y * view.Height / _height);
 
-            return new Coordinate(x, y, 0.0);
+            return new CoordinateZM(x, y);
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ using System.Xml;
 using DotSpatial.Controls.Header;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using Msg = DotSpatial.Controls.MessageStrings;
 
 namespace DotSpatial.Controls

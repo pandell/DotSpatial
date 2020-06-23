@@ -1,0 +1,52 @@
+<!--
+
+This file is automatically included in all projects under "Source" directory.
+
+Reference for customizing build with "Directory.Build.props":
+https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build
+
+Reference for AssemblyInfo properties:
+https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#assemblyinfo-properties
+
+-->
+<Project>
+    <PropertyGroup>
+        <!--
+
+        Shared build properties -->
+        <AssemblyName>$(MSBuildProjectName.TrimStart('Pandell.'))</AssemblyName>
+        <RootNamespace>$(AssemblyName)</RootNamespace>
+        <NoWarn>1591</NoWarn>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>../Pandell.DotSpatial.snk</AssemblyOriginatorKeyFile>
+        <RunSettingsFilePath>../Tests.runsettings</RunSettingsFilePath>
+        <IsTestProject>false</IsTestProject>
+        <IsTestProject Condition=" $(MSBuildProjectName.EndsWith('.Tests')) ">true</IsTestProject>
+        <!--
+
+        File version property.
+        TeamCity always sets environment variable "BUILD_NUMBER"
+        during build, we automatically use it as FileVersion if defined
+        (this value will be used as a basis for all other versions below) -->
+        <FileVersion Condition=" '$(FileVersion)' == '' and '$(BUILD_NUMBER)' != '' ">$(BUILD_NUMBER)</FileVersion>
+        <FileVersion Condition=" '$(FileVersion)' == '' ">0.0.0.0</FileVersion>
+        <!--
+
+        Git-commit-being-built property.
+        TeamCity always sets environment variable "BUILD_VCS_NUMBER"
+        during build, we automatically use it as SourceRevisionId if defined
+        (SourceRevisionId is automatically appended to InformationVersion) -->
+        <SourceRevisionId Condition=" '$(SourceRevisionId)' == '' and '$(BUILD_VCS_NUMBER)' != '' ">$(BUILD_VCS_NUMBER)</SourceRevisionId>
+        <!--
+
+        Derive remaining versions from FileVersion -->
+        <AssemblyVersion>$([System.Version]::Parse($(FileVersion)).ToString(2)).0.0</AssemblyVersion>
+        <InformationalVersion>$([System.Version]::Parse($(FileVersion)).ToString(3))</InformationalVersion>
+        <Company>DotSpatial</Company>
+        <Copyright>© 2012-$([System.DateTime]::Now.Year) DotSpatial Team and Pandell Technology Corporation. All rights reserved.</Copyright>
+        <Product>DotSpatial v$(InformationalVersion) ($(Configuration))</Product>
+        <NeutralLanguage>en</NeutralLanguage>
+    </PropertyGroup>
+</Project>

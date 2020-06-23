@@ -48,11 +48,14 @@ namespace DotSpatial.Symbology
         /// </summary>
         int NumCategories { get; }
 
+        // Pandell, 2020-06-24: .NETStandard doesn't support UITypeEditor
+        #if NET48
         /// <summary>
         /// Gets the UITypeEditor to use for editing this FeatureScheme
         /// </summary>
         /// <returns>The UITypeEditor</returns>
         UITypeEditor PropertyEditor { get; }
+        #endif
 
         #endregion
 

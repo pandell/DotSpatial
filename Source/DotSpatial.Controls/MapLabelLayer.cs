@@ -13,8 +13,10 @@ using System.Windows.Forms;
 using DotSpatial.Data;
 using DotSpatial.Serialization;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
+using NetTopologySuite.Algorithm;
 using NetTopologySuite.Geometries;
+
+#pragma warning disable 618
 
 namespace DotSpatial.Controls
 {
@@ -175,7 +177,7 @@ namespace DotSpatial.Controls
 
             Func<SizeF> labelSize = () => g.MeasureString(txt, CacheList.GetFont(symb));
 
-            IGeometry geo = f.Geometry;
+            Geometry geo = f.Geometry;
 
             if (geo.NumGeometries == 1)
             {
@@ -201,7 +203,7 @@ namespace DotSpatial.Controls
                     int longestIndex = 0;
                     for (int n = 0; n < geo.NumGeometries; n++)
                     {
-                        ILineString ls = geo.GetGeometryN(n) as ILineString;
+                        LineString ls = geo.GetGeometryN(n) as LineString;
                         double tempLength = 0;
                         if (ls != null) tempLength = ls.Length;
                         if (longestLine < tempLength)
@@ -272,7 +274,7 @@ namespace DotSpatial.Controls
             var angle = GetAngleToRotate(symb, f);
             Func<SizeF> labelSize = () => g.MeasureString(txt, CacheList.GetFont(symb));
 
-            IGeometry geo = f.Geometry;
+            Geometry geo = f.Geometry;
 
             if (geo.NumGeometries == 1)
             {
@@ -292,10 +294,10 @@ namespace DotSpatial.Controls
                 else
                 {
                     double largestArea = 0;
-                    IPolygon largest = null;
+                    Polygon largest = null;
                     for (int n = 0; n < geo.NumGeometries; n++)
                     {
-                        IPolygon pg = geo.GetGeometryN(n) as IPolygon;
+                        Polygon pg = geo.GetGeometryN(n) as Polygon;
                         if (pg == null) continue;
                         double tempArea = pg.Area;
                         if (largestArea < tempArea)
@@ -650,7 +652,7 @@ namespace DotSpatial.Controls
         /// <param name="feature">Feature whose label gets rotated.</param>
         /// <param name="lineString">Line string to get the angle from if line orientation should be used.</param>
         /// <returns>Resulting angle in degree.</returns>
-        private static float GetAngleToRotate(ILabelSymbolizer symb, IFeature feature, IGeometry lineString = null)
+        private static float GetAngleToRotate(ILabelSymbolizer symb, IFeature feature, Geometry lineString = null)
         {
             if (symb.UseAngle)
             {
@@ -672,8 +674,10 @@ namespace DotSpatial.Controls
                     ls = GetSegment(ls, symb);
                     if (ls == null) return 0;
                     if (symb.LineOrientation == LineOrientation.Parallel)
-                        return ToSingle(-ls.Angle);
-                    return ToSingle(-ls.Angle - 90);
+                    {
+                        return ToSingle(-AngleUtility.Angle(ls.StartPoint.Coordinate, ls.EndPoint.Coordinate));
+                    }
+                    return ToSingle(-AngleUtility.Angle(ls.StartPoint.Coordinate, ls.EndPoint.Coordinate) - 90);
                 }
             }
 
@@ -748,7 +752,7 @@ namespace DotSpatial.Controls
         /// <param name="symb">Symbolizer to figure out the look of the label.</param>
         /// <param name="angle">Angle in degree the label gets rotated by.</param>
         /// <returns>The RectangleF that is needed to draw the label.</returns>
-        private static RectangleF PlaceLineLabel(IGeometry lineString, Func<SizeF> labelSize, MapArgs e, ILabelSymbolizer symb, float angle)
+        private static RectangleF PlaceLineLabel(Geometry lineString, Func<SizeF> labelSize, MapArgs e, ILabelSymbolizer symb, float angle)
         {
             LineString ls = lineString as LineString;
             if (ls == null) return Rectangle.Empty;
@@ -759,7 +763,7 @@ namespace DotSpatial.Controls
             return PlaceLabel(ls.Centroid.Coordinate, e, labelSize, symb, angle);
         }
 
-        private static RectangleF PlacePointLabel(IGeometry f, MapArgs e, Func<SizeF> labelSize, ILabelSymbolizer symb, float angle)
+        private static RectangleF PlacePointLabel(Geometry f, MapArgs e, Func<SizeF> labelSize, ILabelSymbolizer symb, float angle)
         {
             Coordinate c = f.GetGeometryN(1).Coordinates[0];
             return PlaceLabel(c, e, labelSize, symb, angle);
@@ -774,9 +778,9 @@ namespace DotSpatial.Controls
         /// <param name="symb">The symbolizer that contains the drawing styles.</param>
         /// <param name="angle">The angle used for drawing.</param>
         /// <returns>The resulting drawing rectangle.</returns>
-        private static RectangleF PlacePolygonLabel(IGeometry geom, MapArgs e, Func<SizeF> labelSize, ILabelSymbolizer symb, float angle)
+        private static RectangleF PlacePolygonLabel(Geometry geom, MapArgs e, Func<SizeF> labelSize, ILabelSymbolizer symb, float angle)
         {
-            IPolygon pg = geom as IPolygon;
+            Polygon pg = geom as Polygon;
             if (pg == null) return RectangleF.Empty;
             Coordinate c;
             switch (symb.LabelPlacementMethod)

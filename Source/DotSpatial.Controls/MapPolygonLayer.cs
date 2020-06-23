@@ -10,7 +10,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Controls
 {

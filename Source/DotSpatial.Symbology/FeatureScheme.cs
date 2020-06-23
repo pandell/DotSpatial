@@ -124,12 +124,15 @@ namespace DotSpatial.Symbology
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public virtual int NumCategories => 0;
 
+        // Pandell, 2020-06-24: .NETStandard doesn't support UITypeEditor
+        #if NET48
         /// <summary>
         /// Gets or sets the UITypeEditor to use for editing this FeatureScheme.
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public UITypeEditor PropertyEditor { get; protected set; }
+        #endif
 
         #endregion
 

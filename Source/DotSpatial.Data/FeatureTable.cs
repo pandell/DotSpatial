@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel;
 using System.Data;
 using System.Runtime.Serialization;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Data
 {
@@ -127,7 +127,7 @@ namespace DotSpatial.Data
         /// Gets or sets a geometry factory to use when instantiating geometries
         /// from WKB for the rows of this table.
         /// </summary>
-        public IGeometryFactory GeometryFactory { get; set; }
+        public GeometryFactory GeometryFactory { get; set; }
 
         #endregion
 
@@ -172,7 +172,7 @@ namespace DotSpatial.Data
         /// </summary>
         /// <param name="geometry">The byte form of the well known text to use in creating a new, otherwise empty row.</param>
         /// <returns>The newly created FeatureRow with the specified well known text.</returns>
-        public FeatureRow AddFeatureRow(IGeometry geometry)
+        public FeatureRow AddFeatureRow(Geometry geometry)
         {
             FeatureRow rowFeatureRow = (FeatureRow)NewRow();
             object[] columnValuesArray = { null, geometry.AsBinary() };

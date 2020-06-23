@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using DotSpatial.Data;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Controls
 {

@@ -6,7 +6,8 @@ using System.ComponentModel;
 using System.Drawing;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
+using Point = System.Drawing.Point;
 
 namespace DotSpatial.Controls
 {

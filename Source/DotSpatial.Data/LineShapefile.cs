@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Data
 {
@@ -525,8 +525,11 @@ namespace DotSpatial.Data
 
                     if (shapefile.Header.ShapeType == expectedZType)
                     {
-                        shpStream.WriteLe(f.Geometry.EnvelopeInternal.Minimum.Z);
-                        shpStream.WriteLe(f.Geometry.EnvelopeInternal.Maximum.Z);
+                        // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+                        // shpStream.WriteLe(f.Geometry.EnvelopeInternal.Minimum.Z);
+                        // shpStream.WriteLe(f.Geometry.EnvelopeInternal.Maximum.Z);
+                        shpStream.WriteLe(double.NaN);
+                        shpStream.WriteLe(double.NaN);
                         double[] zVals = new double[points.Count];
                         for (int i = 0; i < points.Count; i++)
                         {
@@ -538,8 +541,11 @@ namespace DotSpatial.Data
 
                     if (shapefile.Header.ShapeType == expectedMType || shapefile.Header.ShapeType == expectedZType)
                     {
-                        shpStream.WriteLe(f.Geometry.EnvelopeInternal.Minimum.M);
-                        shpStream.WriteLe(f.Geometry.EnvelopeInternal.Maximum.M);
+                        // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+                        // shpStream.WriteLe(f.Geometry.EnvelopeInternal.Minimum.M);
+                        // shpStream.WriteLe(f.Geometry.EnvelopeInternal.Maximum.M);
+                        shpStream.WriteLe(double.NaN);
+                        shpStream.WriteLe(double.NaN);
 
                         double[] mVals = new double[points.Count];
                         for (int i = 0; i < points.Count; i++)
@@ -599,7 +605,7 @@ namespace DotSpatial.Data
             for (int iPart = 0; iPart < f.Geometry.NumGeometries; iPart++)
             {
                 parts.Add(points.Count);
-                ILineString bl = f.Geometry.GetGeometryN(iPart) as ILineString;
+                LineString bl = f.Geometry.GetGeometryN(iPart) as LineString;
                 if (bl == null) continue;
                 points.AddRange(bl.Coordinates);
             }
