@@ -246,6 +246,7 @@
   <data name="pnlContent.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <!--
   <data name="&gt;&gt;pnlContent.Name" xml:space="preserve">
     <value>pnlContent</value>
   </data>
@@ -258,6 +259,7 @@
   <data name="&gt;&gt;pnlContent.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  -->
   <data name="&gt;&gt;dialogButtons1.Name" xml:space="preserve">
     <value>dialogButtons1</value>
   </data>
@@ -306,6 +308,7 @@
   <data name="dialogButtons1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <!--
   <data name="&gt;&gt;dialogButtons1.Name" xml:space="preserve">
     <value>dialogButtons1</value>
   </data>
@@ -318,6 +321,7 @@
   <data name="&gt;&gt;dialogButtons1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  -->
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

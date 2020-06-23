@@ -4,10 +4,8 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-
 using DotSpatial.Serialization;
-
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Data
 {

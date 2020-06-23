@@ -8,7 +8,7 @@ using System.Data;
 using System.Linq;
 using DotSpatial.Data;
 using DotSpatial.NTSExtension;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Symbology
 {
@@ -468,7 +468,7 @@ namespace DotSpatial.Symbology
             bool somethingChanged = false;
             SuspendChanges();
             Extent affected = new Extent();
-            IPolygon reg = region.ToPolygon();
+            Polygon reg = region.ToPolygon();
             ShapeRange env = new ShapeRange(region);
 
             for (int shp = 0; shp < _layer.DrawnStates.Length; shp++)
@@ -501,7 +501,7 @@ namespace DotSpatial.Symbology
                         }
                         else
                         {
-                            IGeometry g = _layer.DataSet.GetFeature(shp).Geometry;
+                            Geometry g = _layer.DataSet.GetFeature(shp).Geometry;
                             doAction = reg.Disjoint(g);
                         }
 
@@ -510,7 +510,7 @@ namespace DotSpatial.Symbology
 
                 if (shape.Extent.Intersects(region))
                 {
-                    IGeometry geom = _layer.DataSet.GetFeature(shp).Geometry;
+                    Geometry geom = _layer.DataSet.GetFeature(shp).Geometry;
                     switch (SelectionMode)
                     {
                         case SelectionMode.Contains:

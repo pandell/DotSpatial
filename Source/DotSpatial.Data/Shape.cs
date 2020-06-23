@@ -4,10 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DotSpatial.NTSExtension;
 using DotSpatial.Serialization;
-using GeoAPI.Geometries;
 using NetTopologySuite.Algorithm;
 using NetTopologySuite.Geometries;
+
+#pragma warning disable 618
 
 namespace DotSpatial.Data
 {
@@ -61,7 +63,7 @@ namespace DotSpatial.Data
         /// </summary>
         /// <param name="geometry">The geometry to create a shape from.</param>
         /// <param name="featureType">Feature type of the shape range.</param>
-        public Shape(IGeometry geometry, FeatureType featureType)
+        public Shape(Geometry geometry, FeatureType featureType)
         {
             if (featureType == FeatureType.Unspecified)
             {
@@ -291,7 +293,7 @@ namespace DotSpatial.Data
         /// <param name="vertices">The vertices of all the features.</param>
         /// <param name="offset">offset into vertices array where this feature starts</param>
         /// <returns>The shape range constructed from the given geometry.</returns>
-        public static ShapeRange ShapeRangeFromGeometry(IGeometry geometry, FeatureType featureType, double[] vertices, int offset)
+        public static ShapeRange ShapeRangeFromGeometry(Geometry geometry, FeatureType featureType, double[] vertices, int offset)
         {
             ShapeRange shx = new ShapeRange(featureType)
             {
@@ -302,7 +304,7 @@ namespace DotSpatial.Data
             for (int part = 0; part < geometry.NumGeometries; part++)
             {
                 PartRange prtx = new PartRange(vertices, shapeStart, vIndex - shapeStart, featureType);
-                IPolygon bp = geometry.GetGeometryN(part) as IPolygon;
+                Polygon bp = geometry.GetGeometryN(part) as Polygon;
                 if (bp != null)
                 {
                     // Account for the Shell
@@ -359,6 +361,7 @@ namespace DotSpatial.Data
                 Range.Extent.ExpandToInclude(coordinate.X, coordinate.Y);
                 vertices.Add(coordinate.X);
                 vertices.Add(coordinate.Y);
+
                 if (hasM) m.Add(coordinate.M);
                 if (hasZ) z.Add(coordinate.Z);
                 numPoints++;
@@ -450,7 +453,7 @@ namespace DotSpatial.Data
         /// Converts this shape into a Geometry using the default factory.
         /// </summary>
         /// <returns>The geometry version of this shape.</returns>
-        public IGeometry ToGeometry()
+        public Geometry ToGeometry()
         {
             return ToGeometry(Geometry.DefaultFactory);
         }
@@ -460,7 +463,7 @@ namespace DotSpatial.Data
         /// </summary>
         /// <param name="factory">The geometry factory used for creating the geometry.</param>
         /// <returns>The geometry version of this shape.</returns>
-        public IGeometry ToGeometry(IGeometryFactory factory)
+        public Geometry ToGeometry(GeometryFactory factory)
         {
             if (Range.FeatureType == FeatureType.Polygon)
             {
@@ -490,10 +493,10 @@ namespace DotSpatial.Data
         /// </summary>
         /// <param name="factory">The geometry factory used for creating the geometry.</param>
         /// <returns>A LineString or MultiLineString geometry created from this shape.</returns>
-        protected IGeometry FromLine(IGeometryFactory factory)
+        protected Geometry FromLine(GeometryFactory factory)
         {
             if (factory == null) factory = Geometry.DefaultFactory;
-            var lines = new List<ILineString>();
+            var lines = new List<LineString>();
             foreach (var part in Range.Parts)
             {
                 var coords = GetCoordinates(part);
@@ -510,7 +513,7 @@ namespace DotSpatial.Data
         /// </summary>
         /// <param name="factory">The IGeometryFactory to use to create the new shape.</param>
         /// <returns>The resulting multipoint.</returns>
-        protected IGeometry FromMultiPoint(IGeometryFactory factory)
+        protected Geometry FromMultiPoint(GeometryFactory factory)
         {
             if (factory == null) factory = Geometry.DefaultFactory;
             var coords = new List<Coordinate>();
@@ -519,7 +522,7 @@ namespace DotSpatial.Data
                 GetCoordinates(part, coords);
             }
 
-            return factory.CreateMultiPoint(coords.ToArray());
+            return factory.CreateMultiPoint(coords.CastToPointArray());
         }
 
         /// <summary>
@@ -527,7 +530,7 @@ namespace DotSpatial.Data
         /// </summary>
         /// <param name="factory">The geometry factory used for creating the geometry.</param>
         /// <returns>The resulting point geometry.</returns>
-        protected IGeometry FromPoint(IGeometryFactory factory)
+        protected Geometry FromPoint(GeometryFactory factory)
         {
             if (factory == null) factory = Geometry.DefaultFactory;
             foreach (PartRange part in Range.Parts)
@@ -547,11 +550,11 @@ namespace DotSpatial.Data
         /// </summary>
         /// <param name="factory">The IGeometryFactory to use to create the new IGeometry.</param>
         /// <returns>The IPolygon or IMultiPolygon created from this shape.</returns>
-        protected IGeometry FromPolygon(IGeometryFactory factory)
+        protected Geometry FromPolygon(GeometryFactory factory)
         {
             if (factory == null) factory = Geometry.DefaultFactory;
-            List<ILinearRing> shells = new List<ILinearRing>();
-            List<ILinearRing> holes = new List<ILinearRing>();
+            List<LinearRing> shells = new List<LinearRing>();
+            List<LinearRing> holes = new List<LinearRing>();
             foreach (var part in Range.Parts)
             {
                 var coords = GetCoordinates(part);
@@ -562,7 +565,7 @@ namespace DotSpatial.Data
                 }
                 else
                 {
-                    if (CGAlgorithms.IsCCW(ring.Coordinates))
+                    if (Orientation.IsCCW(ring.Coordinates))
                     {
                         holes.Add(ring);
                     }
@@ -574,26 +577,26 @@ namespace DotSpatial.Data
             }
 
             // Now we have a list of all shells and all holes
-            List<ILinearRing>[] holesForShells = new List<ILinearRing>[shells.Count];
+            List<LinearRing>[] holesForShells = new List<LinearRing>[shells.Count];
             for (int i = 0; i < shells.Count; i++)
             {
-                holesForShells[i] = new List<ILinearRing>();
+                holesForShells[i] = new List<LinearRing>();
             }
 
             // Find holes
-            foreach (ILinearRing t in holes)
+            foreach (LinearRing t in holes)
             {
-                ILinearRing testRing = t;
-                ILinearRing minShell = null;
+                LinearRing testRing = t;
+                LinearRing minShell = null;
                 Envelope minEnv = null;
                 Envelope testEnv = testRing.EnvelopeInternal;
                 Coordinate testPt = testRing.Coordinates[0];
                 for (int j = 0; j < shells.Count; j++)
                 {
-                    ILinearRing tryRing = shells[j];
+                    LinearRing tryRing = shells[j];
                     Envelope tryEnv = tryRing.EnvelopeInternal;
                     if (minShell != null) minEnv = minShell.EnvelopeInternal;
-                    var isContained = tryEnv.Contains(testEnv) && (CGAlgorithms.IsPointInRing(testPt, tryRing.Coordinates) || PointInList(testPt, tryRing.Coordinates));
+                    var isContained = tryEnv.Contains(testEnv) && (PointLocation.IsInRing(testPt, tryRing.Coordinates) || PointInList(testPt, tryRing.Coordinates));
 
                     // Check if this new containing ring is smaller than the current minimum ring
                     if (isContained)
@@ -608,7 +611,7 @@ namespace DotSpatial.Data
                 }
             }
 
-            var polygons = new IPolygon[shells.Count];
+            var polygons = new Polygon[shells.Count];
             for (int i = 0; i < shells.Count; i++)
             {
                 polygons[i] = factory.CreatePolygon(shells[i], holesForShells[i].ToArray());
@@ -644,7 +647,7 @@ namespace DotSpatial.Data
             int i = part.StartIndex;
             foreach (var d in part)
             {
-                var c = new Coordinate(d.X, d.Y);
+                var c = new CoordinateZM(d.X, d.Y);
                 if (M != null && M.Length > 0) c.M = M[i];
                 if (Z != null && Z.Length > 0) c.Z = Z[i];
                 i++;

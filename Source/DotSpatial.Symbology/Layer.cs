@@ -9,7 +9,7 @@ using System.IO;
 using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Serialization;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Symbology
 {

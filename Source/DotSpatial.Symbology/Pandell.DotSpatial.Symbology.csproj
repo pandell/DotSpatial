@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
+    <IsPackable>true</IsPackable>
+    <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="4.7.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" /><!-- we are currently unable to use the latest version, see https://github.com/microsoft/msbuild/issues/4704#issuecomment-648967397 -->
+    <ProjectReference Include="../DotSpatial.Data/Pandell.DotSpatial.Data.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See License.txt file in the project root for full license information.
 
 using System.Collections.Generic;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 
 namespace DotSpatial.NTSExtension
@@ -39,8 +38,9 @@ namespace DotSpatial.NTSExtension
                                         Y = (self.MinY + self.MaxY) / 2
                                     };
 
-            if (!double.IsNaN(self.Minimum.Z)) result.Z = (self.Minimum.Z + self.Maximum.Z) / 2;
-            if (!double.IsNaN(self.Minimum.M)) result.M = (self.Minimum.M + self.Maximum.M) / 2;
+            // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+            // if (!double.IsNaN(self.Minimum.Z)) result.Z = (self.Minimum.Z + self.Maximum.Z) / 2;
+            // if (!double.IsNaN(self.Minimum.M)) result.M = (self.Minimum.M + self.Maximum.M) / 2;
             return result;
         }
 
@@ -51,9 +51,11 @@ namespace DotSpatial.NTSExtension
         /// <returns>False if either envelope.Minimum.M or envelope.Maximum.M is not a number or Minimum.M is bigger than Maximum.M. </returns>
         public static bool HasM(this Envelope envelope)
         {
-            if (double.IsNaN(envelope.Minimum.M) || double.IsNaN(envelope.Maximum.M))
-                return false;
-            return envelope.Minimum.M <= envelope.Maximum.M;
+            // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+            // if (double.IsNaN(envelope.Minimum.M) || double.IsNaN(envelope.Maximum.M))
+            //     return false;
+            // return envelope.Minimum.M <= envelope.Maximum.M;
+            return false;
         }
 
         /// <summary>
@@ -63,9 +65,11 @@ namespace DotSpatial.NTSExtension
         /// <returns>False if either envelope.Minimum.Z or envelope.Maximum.Z is not a number or Minimum.Z is bigger than Maximum.Z. </returns>
         public static bool HasZ(this Envelope envelope)
         {
-            if (double.IsNaN(envelope.Minimum.Z) || double.IsNaN(envelope.Maximum.Z))
-                return false;
-            return envelope.Minimum.Z <= envelope.Maximum.Z;
+            // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+            // if (double.IsNaN(envelope.Minimum.Z) || double.IsNaN(envelope.Maximum.Z))
+            //     return false;
+            // return envelope.Minimum.Z <= envelope.Maximum.Z;
+            return false;
         }
 
         /// <summary>
@@ -76,16 +80,17 @@ namespace DotSpatial.NTSExtension
         /// <param name="m2">Second m value.</param>
         public static void InitM(this Envelope envelope, double m1, double m2)
         {
-            if (m1 < m2)
-            {
-                envelope.Minimum.M = m1;
-                envelope.Maximum.M = m2;
-            }
-            else
-            {
-                envelope.Minimum.M = m2;
-                envelope.Maximum.M = m1;
-            }
+            // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+            // if (m1 < m2)
+            // {
+            //     envelope.Minimum.M = m1;
+            //     envelope.Maximum.M = m2;
+            // }
+            // else
+            // {
+            //     envelope.Minimum.M = m2;
+            //     envelope.Maximum.M = m1;
+            // }
         }
 
         /// <summary>
@@ -96,16 +101,17 @@ namespace DotSpatial.NTSExtension
         /// <param name="z2">Second z value.</param>
         public static void InitZ(this Envelope envelope, double z1, double z2)
         {
-            if (z1 < z2)
-            {
-                envelope.Minimum.Z = z1;
-                envelope.Maximum.Z = z2;
-            }
-            else
-            {
-                envelope.Minimum.Z = z2;
-                envelope.Maximum.Z = z1;
-            }
+            // Pandell, 2020-06-23: "NetTopologySuite" version 1.7.5 doesn't have "NetTopologySuite.Geometries.Envelope.Minimum" property
+            // if (z1 < z2)
+            // {
+            //     envelope.Minimum.Z = z1;
+            //     envelope.Maximum.Z = z2;
+            // }
+            // else
+            // {
+            //     envelope.Minimum.Z = z2;
+            //     envelope.Maximum.Z = z1;
+            // }
         }
 
         /// <summary>
@@ -123,7 +129,7 @@ namespace DotSpatial.NTSExtension
         /// </summary>
         /// <param name="self">The IEnvelope to use with this method</param>
         /// <returns>A Linear ring describing the border of this envelope.</returns>
-        public static ILinearRing ToLinearRing(this Envelope self)
+        public static LinearRing ToLinearRing(this Envelope self)
         {
             // Holes are counter clockwise, so this should create a clockwise linear ring.
             var coords = new List<Coordinate>
@@ -145,7 +151,7 @@ namespace DotSpatial.NTSExtension
         /// </summary>
         /// <param name="self">The IEnvelope to use with this method</param>
         /// <returns>A Polygon, which technically qualifies as an IGeometry</returns>
-        public static IPolygon ToPolygon(this Envelope self)
+        public static Polygon ToPolygon(this Envelope self)
         {
             if (self.IsNull) return new Polygon(new LinearRing(new Coordinate[] { }));
             return new Polygon(ToLinearRing(self));

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 using Point = System.Drawing.Point;
 
@@ -75,7 +74,7 @@ namespace DotSpatial.Modeling.Forms
         /// <returns>True if the element intersect the rectangle from the parent class.</returns>
         public override bool ElementInRectangle(Rectangle rect)
         {
-            IGeometry rectanglePoly;
+            Geometry rectanglePoly;
             if ((rect.Height == 0) && (rect.Width == 0))
             {
                 rectanglePoly = new NetTopologySuite.Geometries.Point(rect.X, rect.Y);

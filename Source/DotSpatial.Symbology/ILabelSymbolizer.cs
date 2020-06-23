@@ -4,7 +4,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Symbology
 {

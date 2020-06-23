@@ -16,7 +16,8 @@ using DotSpatial.Data.Forms;
 using DotSpatial.Projections;
 using DotSpatial.Serialization;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
+using Point = System.Drawing.Point;
 using SelectionMode = DotSpatial.Symbology.SelectionMode;
 
 namespace DotSpatial.Controls

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
+    <PackageReference Include="System.Data.OleDb" Version="4.7.1" />
+    <ProjectReference Include="../DotSpatial.Projections/Pandell.DotSpatial.Projections.csproj" />
+    <ProjectReference Include="../DotSpatial.Serialization/Pandell.DotSpatial.Serialization.csproj" />
+    <ProjectReference Include="../DotSpatial.NTSExtension/Pandell.DotSpatial.NTSExtension.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+
+</Project>
