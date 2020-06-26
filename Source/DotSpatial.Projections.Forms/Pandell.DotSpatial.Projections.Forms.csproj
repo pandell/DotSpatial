@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48</TargetFrameworks>
-    <IsPackable>true</IsPackable>
+    <Description>Windows Forms controls for working with Projections and coordinate systems.$(DescriptionPandellInfo)</Description>
     <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="System.Resources.Extensions" Version="4.6.0" /><!-- we are currently unable to use the latest version, see https://github.com/microsoft/msbuild/issues/4704#issuecomment-648967397 -->
     <ProjectReference Include="../DotSpatial.Projections/Pandell.DotSpatial.Projections.csproj" />
     <Reference Include="System.Windows.Forms" />

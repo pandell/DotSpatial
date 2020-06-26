@@ -2,10 +2,11 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48</TargetFrameworks>
-    <IsPackable>true</IsPackable>
+    <Description>MapWindow 4 compatibility.$(DescriptionPandellInfo)</Description>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <ProjectReference Include="../DotSpatial.Controls/Pandell.DotSpatial.Controls.csproj" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
