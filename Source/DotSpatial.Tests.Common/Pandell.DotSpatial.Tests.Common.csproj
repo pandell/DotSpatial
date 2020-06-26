@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48</TargetFrameworks>
-    <IsPackable>false</IsPackable>
+    <IsPackable>False</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

@@ -29,6 +29,7 @@ Still have questions? Maybe someone already [asked them](https://github.com/DotS
 See [Contributing](.github/CONTRIBUTING.md) for information about how to contribute!
 
 ### Links
+
 * Continious integration build [![Build status](https://ci.appveyor.com/api/projects/status/7tof6s7m07qdad3b/branch/master?svg=true)](https://ci.appveyor.com/project/mogikanin/dotspatial/branch/master)
 * [Changelog](https://github.com/DotSpatial/DotSpatial/blob/master/Changelog.md)
 * [Latest available build from master branch](https://ci.appveyor.com/api/projects/mogikanin/dotspatial/artifacts/Source/bin/Release.zip?branch=master)
@@ -60,3 +61,46 @@ Package |
 [	DotSpatial.Positioning](https://www.nuget.org/packages/DotSpatial.Positioning) |
 [	DotSpatial.Positioning.Forms](https://www.nuget.org/packages/DotSpatial.Positioning.Forms) |
 [	DotSpatial.Positioning.Design](https://www.nuget.org/packages/DotSpatial.Positioning.Design) |
+
+---
+
+# Pandell variant
+
+- Builds using .NET Core SDK (3.1.301 or newer)
+- Removes dependency on GeoAPI
+- Updates NetTopologySuite dependency to version 2.0.0
+
+### How to develop
+
+```sh
+# verify .NET SDK
+dotnet --info
+# => .NET Core SDK (reflecting any global.json):
+# => Version: 3.1.301
+# => ...
+
+# download repository
+cd [development-directory-root]
+git clone https://github.com/pandell/DotSpatial.git
+cd DotSpatial
+
+# build ("Debug" configuration)
+dotnet build
+
+# test ("Debug" configuration; -m:1 tests assemblies sequentially, not in parallel)
+dotnet test -m:1
+
+# package ("Release" configuration)
+git clean -dfx
+# note: only specify "IsExperimental=True" property for pre-release builds
+# this will create packages with version "X.Y.Z-alpha.Q"
+dotnet pack --configuration Release -p:BUILD_NUMBER=X.Y.Z.Q -p:IsExperimental=True
+
+# push all projects to NuGet server (requires "package" step above to be run first)
+# note: in addition to ".nupkg", the command below will automatically
+# detect ".snupkg" symbol package and push both ".nupkg" and ".snupkg"
+# to the specified NuGet server; for more information see
+# https://docs.microsoft.com/en-us/nuget/create-packages/symbol-packages-snupkg
+dotnet nuget push **/*.nupkg --api-key SECRET --source https://api.nuget.org/v3/index.json
+# MyGet: dotnet nuget push **/*.nupkg --source https://www.myget.org/F/[FeedName]/auth/[FeedSecret]/api/v3/index.json
+```
