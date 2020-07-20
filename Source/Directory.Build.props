@@ -58,7 +58,7 @@ Forked by Pandell to switch to the latest NetTopologySuite without GeoAPI depend
     <PackageTags>GIS;Spatial;DotSpatial</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageVersion>$([System.Version]::Parse($(FileVersion)).ToString(3))</PackageVersion>
-    <PackageVersion Condition=" '$(IsExperimental)' != '' and $([System.Convert]::ToBoolean($(IsExperimental))) ">$(PackageVersion)-alpha.$([System.Version]::Parse($(FileVersion)).Revision)</PackageVersion>
+    <PackageVersion Condition=" '$(IsExperimental)' != '' and $([System.Convert]::ToBoolean($(IsExperimental))) ">$(PackageVersion)-preview.$([System.Version]::Parse($(FileVersion)).Revision)</PackageVersion>
     <PackageIcon>DotSpatial.png</PackageIcon>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSource>True</IncludeSource>
