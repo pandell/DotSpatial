@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" /><!-- we are currently unable to use the latest version, see https://github.com/microsoft/msbuild/issues/4704#issuecomment-648967397 -->
+    <PackageReference Include="System.Resources.Extensions" Version="4.7.1" />
     <ProjectReference Include="../DotSpatial.Projections.Forms/Pandell.DotSpatial.Projections.Forms.csproj" />
     <ProjectReference Include="../DotSpatial.Symbology/Pandell.DotSpatial.Symbology.csproj" />
     <Reference Include="System.Windows.Forms" />
