@@ -72,11 +72,11 @@ Package |
 
 ### How to develop
 
-```sh
+```powershell
 # verify .NET SDK
 dotnet --info
 # => .NET Core SDK (reflecting any global.json):
-# => Version: 3.1.301
+# => Version: 3.1.402
 # => ...
 
 # download repository
@@ -87,20 +87,23 @@ cd DotSpatial
 # build ("Debug" configuration)
 dotnet build
 
-# test ("Debug" configuration; -m:1 tests assemblies sequentially, not in parallel)
-dotnet test -m:1
+# test ("Debug" configuration)
+dotnet test -m:1 # "-m:1" tests assemblies sequentially, not in parallel
+dotnet test -m:1 -v normal --no-build # prints tests being run, faster startup, sequential
 
 # package ("Release" configuration)
-git clean -dfx
 # note: only specify "IsExperimental=True" property for pre-release builds
-# this will create packages with version "X.Y.Z-alpha.Q"
-dotnet pack --configuration Release -p:BUILD_NUMBER=X.Y.Z.Q -p:IsExperimental=True
+# this will create packages with version "X.Y.Z-preview.Q"
+git clean -dfx
+dotnet pack --configuration Release --output build -p:BUILD_NUMBER=X.Y.Z.Q -p:IsExperimental=True
 
-# push all projects to NuGet server (requires "package" step above to be run first)
+# push all projects to Pandell's MyGet server (requires "package" step above to be run first)
 # note: in addition to ".nupkg", the command below will automatically
 # detect ".snupkg" symbol package and push both ".nupkg" and ".snupkg"
 # to the specified NuGet server; for more information see
 # https://docs.microsoft.com/en-us/nuget/create-packages/symbol-packages-snupkg
-dotnet nuget push **/*.nupkg --api-key SECRET --source https://api.nuget.org/v3/index.json
-# MyGet: dotnet nuget push **/*.nupkg --source https://www.myget.org/F/[FeedName]/auth/[FeedSecret]/api/v3/index.json
+# dotnet nuget push build/*.nupkg --api-key SECRET --source https://api.nuget.org/v3/index.json
+# (note about package pattern: .NET Core SDK 3.1.402 fails with "File does not exist"
+# when using "universal directory separator" '/', so we have to use Windows-only '\' for now)
+dotnet nuget push build\*.nupkg --api-key SECRET --source https://www.myget.org/F/pandell-nuget/auth/SECRET/api/v3/index.json
 ```
