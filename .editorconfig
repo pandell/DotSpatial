@@ -8,8 +8,11 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{config,json,json5,csproj,props}]
+[*.{config,json,json5,csproj,props,yml,resx}]
 indent_size = 2
+
+[*.cshtml]
+insert_final_newline = false
 
 [*.md]
 trim_trailing_whitespace = false

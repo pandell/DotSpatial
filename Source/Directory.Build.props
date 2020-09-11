@@ -36,7 +36,7 @@ Forked by Pandell to switch to the latest NetTopologySuite without GeoAPI depend
     TeamCity always sets environment variable "BUILD_NUMBER"
     during build, we automatically use it as FileVersion if defined
     (this value will be used as a basis for all other versions below) -->
-    <ContinuousIntegrationBuild Condition=" '$(BUILD_NUMBER)' != '' ">True</ContinuousIntegrationBuild>
+    <ContinuousIntegrationBuild Condition=" '$(BUILD_NUMBER)' != '' and '$(Configuration)' == 'Release' ">True</ContinuousIntegrationBuild>
     <FileVersion Condition=" '$(FileVersion)' == '' and '$(BUILD_NUMBER)' != '' ">$(BUILD_NUMBER)</FileVersion>
     <FileVersion Condition=" '$(FileVersion)' == '' ">0.0.0.0</FileVersion>
     <!--
