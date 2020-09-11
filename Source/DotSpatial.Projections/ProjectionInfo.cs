@@ -25,6 +25,8 @@ using System.Threading;
 using DotSpatial.Projections.AuthorityCodes;
 using DotSpatial.Projections.Transforms;
 
+#pragma warning disable 649 // field is never assigned to - legacy design
+
 namespace DotSpatial.Projections
 {
     /// <summary>

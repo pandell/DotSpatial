@@ -3,7 +3,7 @@
 
 using System;
 using System.ComponentModel;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.NTSExtension
 {
@@ -401,7 +401,7 @@ namespace DotSpatial.NTSExtension
         /// <returns>A copy of this instance.</returns>
         public object Clone()
         {
-            return new Coordinate(_x, _y, _z, _m);
+            return new CoordinateZM(_x, _y, _z, _m);
         }
 
         /// <summary>
@@ -432,9 +432,9 @@ namespace DotSpatial.NTSExtension
         /// Creates a new Coordinate copy of this instance.
         /// </summary>
         /// <returns>A copy of this instance.</returns>
-        public Coordinate Copy()
+        public CoordinateZM Copy()
         {
-            return new Coordinate(_x, _y, _z, _m);
+            return new CoordinateZM(_x, _y, _z, _m);
         }
 
         /// <summary>

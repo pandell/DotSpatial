@@ -17,7 +17,7 @@ using System.Windows.Forms;
 using System.Xml;
 using DotSpatial.Serialization;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Controls
 {

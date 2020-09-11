@@ -11,9 +11,10 @@ using System.Linq;
 using DotSpatial.NTSExtension;
 using DotSpatial.Projections;
 using DotSpatial.Serialization;
-using GeoAPI.Geometries;
 using NetTopologySuite.Algorithm;
 using NetTopologySuite.Geometries;
+
+#pragma warning disable 618
 
 namespace DotSpatial.Data
 {
@@ -268,7 +269,7 @@ namespace DotSpatial.Data
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IGeometryFactory FeatureGeometryFactory { get; set; }
+        public GeometryFactory FeatureGeometryFactory { get; set; }
 
         /// <summary>
         /// Gets the feature lookup table itself.
@@ -457,7 +458,7 @@ namespace DotSpatial.Data
         /// </summary>
         /// <param name="geometry">The geometry.</param>
         /// <returns>The feature that was added to this featureset</returns>
-        public IFeature AddFeature(IGeometry geometry)
+        public IFeature AddFeature(Geometry geometry)
         {
             IFeature f = new Feature(geometry, this);
             return f;
@@ -1652,14 +1653,14 @@ namespace DotSpatial.Data
         protected IFeature GetLine(int index)
         {
             ShapeRange shape = ShapeIndices[index];
-            List<ILineString> lines = new List<ILineString>();
+            List<LineString> lines = new List<LineString>();
             foreach (PartRange part in shape.Parts)
             {
                 int i = part.StartIndex;
                 List<Coordinate> coords = new List<Coordinate>();
                 foreach (Vertex d in part)
                 {
-                    Coordinate c = new Coordinate(d.X, d.Y);
+                    Coordinate c = new CoordinateZM(d.X, d.Y);
                     coords.Add(c);
                     if (M != null && M.Length > 0)
                     {
@@ -1677,7 +1678,7 @@ namespace DotSpatial.Data
                 lines.Add(new LineString(coords.ToArray()));
             }
 
-            IGeometry geom;
+            Geometry geom;
             if (FeatureGeometryFactory == null)
             {
                 FeatureGeometryFactory = GeometryFactory.Default;
@@ -1693,7 +1694,7 @@ namespace DotSpatial.Data
             }
             else
             {
-                geom = FeatureGeometryFactory.CreateMultiLineString(new ILineString[] { });
+                geom = FeatureGeometryFactory.CreateMultiLineString(new LineString[] { });
             }
 
             var f = new Feature(geom)
@@ -1720,7 +1721,7 @@ namespace DotSpatial.Data
                 int i = part.StartIndex;
                 foreach (Vertex vertex in part)
                 {
-                    Coordinate c = new Coordinate(vertex.X, vertex.Y);
+                    Coordinate c = new CoordinateZM(vertex.X, vertex.Y);
                     coords.Add(c);
                     if (M != null && M.Length != 0)
                     {
@@ -1741,7 +1742,7 @@ namespace DotSpatial.Data
                 FeatureGeometryFactory = GeometryFactory.Default;
             }
 
-            var mp = FeatureGeometryFactory.CreateMultiPoint(coords.ToArray());
+            var mp = FeatureGeometryFactory.CreateMultiPoint(coords.CastToPointArray());
             var f = new Feature(mp)
             {
                 ParentFeatureSet = this,
@@ -1760,14 +1761,14 @@ namespace DotSpatial.Data
         protected IFeature GetPoint(int index)
         {
             ShapeRange shape = ShapeIndices[index];
-            IPoint p;
+            Point p;
             if (shape.ShapeType == ShapeType.NullShape)
             {
                 p = Point.Empty;
             }
             else
             {
-                Coordinate c = new Coordinate(Vertex[shape.StartIndex * 2], Vertex[(shape.StartIndex * 2) + 1]);
+                Coordinate c = new CoordinateZM(Vertex[shape.StartIndex * 2], Vertex[(shape.StartIndex * 2) + 1]);
 
                 if (M != null && M.Length != 0)
                 {
@@ -1806,15 +1807,15 @@ namespace DotSpatial.Data
             if (FeatureGeometryFactory == null) FeatureGeometryFactory = GeometryFactory.Default;
 
             ShapeRange shape = ShapeIndices[index];
-            List<ILinearRing> shells = new List<ILinearRing>();
-            List<ILinearRing> holes = new List<ILinearRing>();
+            List<LinearRing> shells = new List<LinearRing>();
+            List<LinearRing> holes = new List<LinearRing>();
             foreach (PartRange part in shape.Parts)
             {
                 List<Coordinate> coords = new List<Coordinate>();
                 int i = part.StartIndex;
                 foreach (Vertex d in part)
                 {
-                    Coordinate c = new Coordinate(d.X, d.Y);
+                    Coordinate c = new CoordinateZM(d.X, d.Y);
                     if (M != null && M.Length > 0)
                     {
                         c.M = M[i];
@@ -1829,14 +1830,14 @@ namespace DotSpatial.Data
                     coords.Add(c);
                 }
 
-                ILinearRing ring = FeatureGeometryFactory.CreateLinearRing(coords.ToArray());
+                LinearRing ring = FeatureGeometryFactory.CreateLinearRing(coords.ToArray());
                 if (shape.Parts.Count == 1)
                 {
                     shells.Add(ring);
                 }
                 else
                 {
-                    if (CGAlgorithms.IsCCW(ring.Coordinates))
+                    if (Orientation.IsCCW(ring.Coordinates))
                     {
                         holes.Add(ring);
                     }
@@ -1848,16 +1849,16 @@ namespace DotSpatial.Data
             }
 
             // Now we have a list of all shells and all holes
-            List<ILinearRing>[] holesForShells = new List<ILinearRing>[shells.Count];
+            List<LinearRing>[] holesForShells = new List<LinearRing>[shells.Count];
             for (int i = 0; i < shells.Count; i++)
             {
-                holesForShells[i] = new List<ILinearRing>();
+                holesForShells[i] = new List<LinearRing>();
             }
 
             // Find holes
-            foreach (ILinearRing t in holes)
+            foreach (LinearRing t in holes)
             {
-                ILinearRing currentHole = t;
+                LinearRing currentHole = t;
                 Envelope minEnv = null;
                 Envelope currentHoleEnv = currentHole.EnvelopeInternal;
                 Coordinate currentHoleFirstPt = currentHole.Coordinates[0];
@@ -1865,11 +1866,11 @@ namespace DotSpatial.Data
 
                 for (int j = 0; j < shells.Count; j++)
                 {
-                    ILinearRing currentShell = shells[j];
+                    LinearRing currentShell = shells[j];
                     Envelope currentShellEnv = currentShell.EnvelopeInternal;
 
                     // Check if this new containing ring is smaller than the current minimum ring
-                    if (currentShellEnv.Contains(currentHoleEnv) && (CGAlgorithms.IsPointInRing(currentHoleFirstPt, currentShell.Coordinates) || PointInList(currentHoleFirstPt, currentShell.Coordinates)))
+                    if (currentShellEnv.Contains(currentHoleEnv) && (PointLocation.IsInRing(currentHoleFirstPt, currentShell.Coordinates) || PointInList(currentHoleFirstPt, currentShell.Coordinates)))
                     {
                         if (minEnv == null || minEnv.Contains(currentShellEnv))
                         {
@@ -1882,13 +1883,13 @@ namespace DotSpatial.Data
                 if (addToShell > -1) holesForShells[addToShell].Add(t); // add the hole to the smallest shell it fits into
             }
 
-            var polygons = new IPolygon[shells.Count];
+            var polygons = new Polygon[shells.Count];
             for (int i = 0; i < shells.Count; i++)
             {
                 polygons[i] = FeatureGeometryFactory.CreatePolygon(shells[i], holesForShells[i].ToArray());
             }
 
-            Feature feature = new Feature(polygons.Length == 1 ? polygons[0] : FeatureGeometryFactory.CreateMultiPolygon(polygons) as IGeometry)
+            Feature feature = new Feature(polygons.Length == 1 ? polygons[0] : FeatureGeometryFactory.CreateMultiPolygon(polygons) as Geometry)
             {
                 ParentFeatureSet = this,
                 ShapeIndex = shape
@@ -1998,7 +1999,7 @@ namespace DotSpatial.Data
                 for (int part = 0; part < f.Geometry.NumGeometries; part++)
                 {
                     PartRange prtx = new PartRange(_vertices, shapeStart, vIndex - shapeStart, FeatureType);
-                    IPolygon bp = f.Geometry.GetGeometryN(part) as IPolygon;
+                    Polygon bp = f.Geometry.GetGeometryN(part) as Polygon;
                     if (bp != null)
                     {
                         // Account for the Shell

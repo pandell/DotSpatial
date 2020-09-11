@@ -11,6 +11,8 @@ using DotSpatial.Symbology;
 using DotSpatial.Tests.Common;
 using NUnit.Framework;
 
+#pragma warning disable 618
+
 namespace DotSpatial.Serialization.Tests
 {
     /// <summary>

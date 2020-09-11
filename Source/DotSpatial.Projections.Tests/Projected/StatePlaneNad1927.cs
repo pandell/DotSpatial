@@ -1,5 +1,7 @@
 using NUnit.Framework;
 
+#pragma warning disable 618 // TestFixtureSetUpAttribute is obsolete - legacy design
+
 namespace DotSpatial.Projections.Tests.Projected
 {
     /// <summary>

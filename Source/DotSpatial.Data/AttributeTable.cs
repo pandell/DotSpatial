@@ -533,7 +533,9 @@ namespace DotSpatial.Data
             Contract.Requires(!string.IsNullOrEmpty(fileName), "fileName is null or empty.");
 
             Filename = Path.ChangeExtension(fileName, ".dbf");
-            Contract.Assert(File.Exists(_fileName), "The dbf file for this shapefile was not found.");
+
+            // Pandell, 2020-06-23: This assertion interrupts tests in debug builds
+            // Contract.Assert(File.Exists(_fileName), "The dbf file for this shapefile was not found.");
 
             AttributesPopulated = false; // we had a file, but have not read the dbf content into memory yet.
             _dataTable = new DataTable();

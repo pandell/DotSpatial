@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net48</TargetFrameworks>
+    <Description>Windows forms controls related to customizing map cartographic symbols.$(DescriptionPandellInfo)</Description>
+    <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="System.Resources.Extensions" Version="4.7.1" />
+    <ProjectReference Include="../DotSpatial.Data.Forms/Pandell.DotSpatial.Data.Forms.csproj" />
+    <ProjectReference Include="../DotSpatial.Symbology/Pandell.DotSpatial.Symbology.csproj" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="**/*.ico" />
+  </ItemGroup>
+
+</Project>

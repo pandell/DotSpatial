@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See License.txt file in the project root for full license information.
 
 using System;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.NTSExtension
 {
@@ -19,29 +19,39 @@ namespace DotSpatial.NTSExtension
         /// <param name="self">this</param>
         /// <param name="origin">Coordinate the geometry gets rotated around.</param>
         /// <param name="radAngle">Rotation angle in radian.</param>
-        public static void Rotate(this IGeometry self, Coordinate origin, double radAngle)
+        public static void Rotate(this Geometry self, Coordinate origin, double radAngle)
         {
             switch (self.OgcGeometryType)
             {
                 case OgcGeometryType.Point:
-                    IPoint pnt = self as IPoint;
+                    Point pnt = self as Point;
                     if (pnt != null)
                     {
-                        RotateCoordinateRad(origin, ref pnt.Coordinate.X, ref pnt.Coordinate.Y, radAngle);
+                        var resultX = pnt.Coordinate.X;
+                        var resultY = pnt.Coordinate.Y;
+                        RotateCoordinateRad(origin, ref resultX, ref resultY, radAngle);
+                        pnt.Coordinate.X = resultX;
+                        pnt.Coordinate.Y = resultY;
                     }
 
                     break;
                 case OgcGeometryType.LineString:
-                    ILineString l = self as ILineString;
+                    LineString l = self as LineString;
                     if (l != null)
                     {
                         foreach (Coordinate c in l.Coordinates)
-                            RotateCoordinateRad(origin, ref c.X, ref c.Y, radAngle);
+                        {
+                            var resultX = c.X;
+                            var resultY = c.Y;
+                            RotateCoordinateRad(origin, ref resultX, ref resultY, radAngle);
+                            c.X = resultX;
+                            c.Y = resultY;
+                        }
                     }
 
                     break;
                 case OgcGeometryType.Polygon:
-                    IPolygon p = self as IPolygon;
+                    Polygon p = self as Polygon;
                     if (p != null)
                     {
                         p.Shell.Rotate(origin, radAngle);
@@ -51,10 +61,10 @@ namespace DotSpatial.NTSExtension
 
                     break;
                 case OgcGeometryType.GeometryCollection:
-                    IGeometryCollection geocol = self as IGeometryCollection;
+                    GeometryCollection geocol = self as GeometryCollection;
                     if (geocol != null)
                     {
-                        foreach (IGeometry geo in geocol.Geometries)
+                        foreach (Geometry geo in geocol.Geometries)
                             geo.Rotate(origin, radAngle);
                     }
 

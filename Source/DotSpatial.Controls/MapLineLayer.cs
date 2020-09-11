@@ -10,7 +10,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Controls
 {
@@ -317,7 +317,7 @@ namespace DotSpatial.Controls
         /// <param name="ls">LineString that gets added.</param>
         /// <param name="args">The map arguments.</param>
         /// <param name="clipRect">The clip rectangle.</param>
-        internal static void BuildLineString(GraphicsPath path, ILineString ls, MapArgs args, Rectangle clipRect)
+        internal static void BuildLineString(GraphicsPath path, LineString ls, MapArgs args, Rectangle clipRect)
         {
             double minX = args.MinX;
             double maxY = args.MaxY;
@@ -580,17 +580,17 @@ namespace DotSpatial.Controls
             {
                 foreach (IFeature f in featList)
                 {
-                    var geo = f.Geometry as ILineString;
+                    var geo = f.Geometry as LineString;
                     if (geo != null)
                     {
                         BuildLineString(graphPath, geo, e, clipRect);
                     }
                     else
                     {
-                        var col = f.Geometry as IGeometryCollection;
+                        var col = f.Geometry as GeometryCollection;
                         if (col != null)
                         {
-                            foreach (var c1 in col.Geometries.OfType<ILineString>())
+                            foreach (var c1 in col.Geometries.OfType<LineString>())
                             {
                                 BuildLineString(graphPath, c1, e, clipRect);
                             }

@@ -1,6 +1,6 @@
 # What is DotSpatial?
 
-DotSpatial is a geographic information system library written for .NET Framework.
+DotSpatial is a geographic information system library written for .NET Framework (please see [Pandell variant](#pandell-variant) for .NET Core 3.1+).
 It allows developers to incorporate spatial data, analysis and mapping functionality into their applications or to contribute GIS extensions to the community.
 
 DotSpatial provides a map control for .NET and several GIS capabilities including:
@@ -29,6 +29,7 @@ Still have questions? Maybe someone already [asked them](https://github.com/DotS
 See [Contributing](.github/CONTRIBUTING.md) for information about how to contribute!
 
 ### Links
+
 * Continious integration build [![Build status](https://ci.appveyor.com/api/projects/status/7tof6s7m07qdad3b/branch/master?svg=true)](https://ci.appveyor.com/project/mogikanin/dotspatial/branch/master)
 * [Changelog](https://github.com/DotSpatial/DotSpatial/blob/master/Changelog.md)
 * [Latest available build from master branch](https://ci.appveyor.com/api/projects/mogikanin/dotspatial/artifacts/Source/bin/Release.zip?branch=master)
@@ -60,3 +61,49 @@ Package |
 [	DotSpatial.Positioning](https://www.nuget.org/packages/DotSpatial.Positioning) |
 [	DotSpatial.Positioning.Forms](https://www.nuget.org/packages/DotSpatial.Positioning.Forms) |
 [	DotSpatial.Positioning.Design](https://www.nuget.org/packages/DotSpatial.Positioning.Design) |
+
+---
+
+# Pandell variant
+
+- Builds using .NET Core SDK (3.1.301 or newer)
+- Removes dependency on GeoAPI
+- Updates NetTopologySuite dependency to version 2.0.0
+
+### How to develop
+
+```powershell
+# verify .NET SDK
+dotnet --info
+# => .NET Core SDK (reflecting any global.json):
+# => Version: 3.1.402
+# => ...
+
+# download repository
+cd [development-directory-root]
+git clone https://github.com/pandell/DotSpatial.git
+cd DotSpatial
+
+# build ("Debug" configuration)
+dotnet build
+
+# test ("Debug" configuration)
+dotnet test -m:1 # "-m:1" tests assemblies sequentially, not in parallel
+dotnet test -m:1 -v normal --no-build # prints tests being run, faster startup, sequential
+
+# package ("Release" configuration)
+# note: only specify "IsExperimental=True" property for pre-release builds
+# this will create packages with version "X.Y.Z-preview.Q"
+git clean -dfx
+dotnet pack --configuration Release --output build -p:BUILD_NUMBER=X.Y.Z.Q -p:IsExperimental=True
+
+# push all projects to Pandell's MyGet server (requires "package" step above to be run first)
+# note: in addition to ".nupkg", the command below will automatically
+# detect ".snupkg" symbol package and push both ".nupkg" and ".snupkg"
+# to the specified NuGet server; for more information see
+# https://docs.microsoft.com/en-us/nuget/create-packages/symbol-packages-snupkg
+# dotnet nuget push build/*.nupkg --api-key SECRET --source https://api.nuget.org/v3/index.json
+# (note about package pattern: .NET Core SDK 3.1.402 fails with "File does not exist"
+# when using "universal directory separator" '/', so we have to use Windows-only '\' for now)
+dotnet nuget push build\*.nupkg --api-key SECRET --source https://www.myget.org/F/pandell-nuget/auth/SECRET/api/v3/index.json
+```

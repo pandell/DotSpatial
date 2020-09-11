@@ -161,6 +161,7 @@ ClientBin/
 *.publishsettings
 node_modules/
 .vs/
+.idea/
 
 
 # RIA/Silverlight projects

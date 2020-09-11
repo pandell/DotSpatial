@@ -4,8 +4,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using GeoAPI.Geometries;
 using NetTopologySuite.Algorithm;
+using NetTopologySuite.Geometries;
+
+#pragma warning disable 618
 
 namespace DotSpatial.Data
 {
@@ -178,13 +180,13 @@ namespace DotSpatial.Data
             for (int iPart = 0; iPart < f.Geometry.NumGeometries; iPart++)
             {
                 parts.Add(points.Count);
-                IPolygon pg = f.Geometry.GetGeometryN(iPart) as IPolygon;
+                Polygon pg = f.Geometry.GetGeometryN(iPart) as Polygon;
                 if (pg == null) continue;
 
-                ILineString bl = pg.Shell;
+                LineString bl = pg.Shell;
 
                 // Exterior rings need to be clockwise
-                IEnumerable<Coordinate> coords = CGAlgorithms.IsCCW(bl.Coordinates) ? bl.Coordinates.Reverse() : bl.Coordinates;
+                IEnumerable<Coordinate> coords = Orientation.IsCCW(bl.Coordinates) ? bl.Coordinates.Reverse() : bl.Coordinates;
                 points.AddRange(coords);
 
                 foreach (var hole in pg.Holes)
@@ -192,7 +194,7 @@ namespace DotSpatial.Data
                     parts.Add(points.Count);
 
                     // Interior rings need to be counter-clockwise
-                    IEnumerable<Coordinate> holeCoords = CGAlgorithms.IsCCW(hole.Coordinates) ? hole.Coordinates : hole.Coordinates.Reverse();
+                    IEnumerable<Coordinate> holeCoords = Orientation.IsCCW(hole.Coordinates) ? hole.Coordinates : hole.Coordinates.Reverse();
                     points.AddRange(holeCoords);
                 }
             }

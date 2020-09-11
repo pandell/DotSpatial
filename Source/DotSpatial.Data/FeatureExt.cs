@@ -4,9 +4,6 @@
 using System.Collections.Generic;
 using System.Data;
 using DotSpatial.NTSExtension;
-using DotSpatial.Serialization;
-using GeoAPI.Geometries;
-using GeoAPI.Operation.Buffer;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.Operation.Buffer;
 
@@ -28,7 +25,7 @@ namespace DotSpatial.Data
         /// <returns>An IFeature representing the output from the buffer operation</returns>
         public static IFeature Buffer(this IFeature self, double distance)
         {
-            IGeometry g = self.Geometry.Buffer(distance);
+            Geometry g = self.Geometry.Buffer(distance);
             return new Feature(g);
         }
 
@@ -42,7 +39,7 @@ namespace DotSpatial.Data
         /// <returns>An IFeature representing the output from the buffer operation</returns>
         public static IFeature Buffer(this IFeature self, double distance, EndCapStyle endCapStyle)
         {
-            IGeometry g = self.Geometry.Buffer(
+            Geometry g = self.Geometry.Buffer(
                 distance,
                 new BufferParameters
                 {
@@ -61,7 +58,7 @@ namespace DotSpatial.Data
         /// <returns>An IFeature representing the output from the buffer operation</returns>
         public static IFeature Buffer(this IFeature self, double distance, int quadrantSegments)
         {
-            IGeometry g = self.Geometry.Buffer(distance, quadrantSegments);
+            Geometry g = self.Geometry.Buffer(distance, quadrantSegments);
             return new Feature(g);
         }
 
@@ -76,7 +73,7 @@ namespace DotSpatial.Data
         /// <returns>An IFeature representing the output from the buffer operation</returns>
         public static IFeature Buffer(this IFeature self, double distance, int quadrantSegments, EndCapStyle endCapStyle)
         {
-            IGeometry g = self.Geometry.Buffer(distance, quadrantSegments, endCapStyle);
+            Geometry g = self.Geometry.Buffer(distance, quadrantSegments, endCapStyle);
             return new Feature(g);
         }
 
@@ -234,11 +231,11 @@ namespace DotSpatial.Data
         /// <param name="self">This feature</param>
         /// <param name="other">The other feature to compare to.</param>
         /// <returns>A new feature that is the geometric difference between this feature and the specified feature.</returns>
-        public static IFeature Difference(this IFeature self, IGeometry other)
+        public static IFeature Difference(this IFeature self, Geometry other)
         {
             if (other == null) return self.Copy();
 
-            IGeometry g = self.Geometry.Difference(other);
+            Geometry g = self.Geometry.Difference(other);
             if (g == null || g.IsEmpty) return null;
 
             return new Feature(g);
@@ -282,9 +279,9 @@ namespace DotSpatial.Data
         /// <param name="self">This feature</param>
         /// <param name="other">The other feature to compare to.</param>
         /// <returns>A new feature that is the geometric intersection between this feature and the specified feature.</returns>
-        public static IFeature Intersection(this IFeature self, IGeometry other)
+        public static IFeature Intersection(this IFeature self, Geometry other)
         {
-            IGeometry g = self.Geometry.Intersection(other);
+            Geometry g = self.Geometry.Intersection(other);
             if (g == null || g.IsEmpty) return null;
 
             return new Feature(g);
@@ -322,13 +319,13 @@ namespace DotSpatial.Data
 
             if (self.FeatureType != FeatureType.Polygon) return self.Geometry.NumGeometries;
 
-            IPolygon p = self.Geometry as IPolygon;
+            Polygon p = self.Geometry as Polygon;
             if (p == null)
             {
                 // we have a multi-polygon situation
                 for (int i = 0; i < self.Geometry.NumGeometries; i++)
                 {
-                    p = self.Geometry.GetGeometryN(i) as IPolygon;
+                    p = self.Geometry.GetGeometryN(i) as Polygon;
                     if (p == null) continue;
 
                     count += 1; // Shell
@@ -363,7 +360,7 @@ namespace DotSpatial.Data
         /// <param name="radAngle">The rotation angle in radian.</param>
         public static void Rotate(this IFeature self, Coordinate origin, double radAngle)
         {
-            IGeometry geo = self.Geometry.Copy();
+            Geometry geo = self.Geometry.Copy();
             geo.Rotate(origin, radAngle);
             self.Geometry = geo;
             self.UpdateEnvelope();
@@ -386,9 +383,9 @@ namespace DotSpatial.Data
         /// <param name="self">This feature</param>
         /// <param name="other">The other feature to compare to.</param>
         /// <returns>A new feature that is the geometric symmetric difference between this feature and the specified feature.</returns>
-        public static IFeature SymmetricDifference(this IFeature self, IGeometry other)
+        public static IFeature SymmetricDifference(this IFeature self, Geometry other)
         {
-            IGeometry g = self.Geometry.SymmetricDifference(other);
+            Geometry g = self.Geometry.SymmetricDifference(other);
             if (g == null || g.IsEmpty) return null;
 
             return new Feature(g);
@@ -421,9 +418,9 @@ namespace DotSpatial.Data
         /// <param name="self">This feature</param>
         /// <param name="other">The other feature to compare to.</param>
         /// <returns>A new feature that is the geometric union between this feature and the specified feature.</returns>
-        public static IFeature Union(this IFeature self, IGeometry other)
+        public static IFeature Union(this IFeature self, Geometry other)
         {
-            IGeometry g = self.Geometry.Union(other);
+            Geometry g = self.Geometry.Union(other);
             if (g == null || g.IsEmpty) return null;
 
             return new Feature(g);

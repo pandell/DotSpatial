@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+More information about runsettings files:
+https://github.com/Microsoft/vstest-docs/blob/master/docs/configure.md
+https://docs.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file?view=vs-2019
+
+Information about NUnit-specific runsettings:
+https://github.com/nunit/docs/blob/master/docs/articles/vs-test-adapter/Tips-And-Tricks.md#vs-test-runsettings-configuration
+-->
+<RunSettings>
+  <RunConfiguration>
+    <TargetPlatform>x64</TargetPlatform>
+  </RunConfiguration>
+</RunSettings>

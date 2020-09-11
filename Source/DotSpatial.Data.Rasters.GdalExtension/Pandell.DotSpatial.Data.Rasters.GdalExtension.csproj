@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net48</TargetFrameworks>
+    <IsPackable>False</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GDAL" Version="1.11.1" />
+    <PackageReference Include="GDAL.Native" Version="1.11.1" />
+    <PackageReference Include="GDAL.Plugins" Version="1.11.1" />
+    <ProjectReference Include="../DotSpatial.Controls/Pandell.DotSpatial.Controls.csproj" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(USERPROFILE)/.nuget/packages/gdal.native/1.11.1/gdal/**" Link="gdal/%(RecursiveDir)%(FileName)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="$(USERPROFILE)/.nuget/packages/gdal.plugins/1.11.1/gdal/**" Link="gdal/%(RecursiveDir)%(FileName)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

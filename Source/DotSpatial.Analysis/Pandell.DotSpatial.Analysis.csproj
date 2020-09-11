@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net48</TargetFrameworks>
+    <Description>Analysis and manipulation classes, such as clip raster with polygon, which are generally wrapped by a tool.$(DescriptionPandellInfo)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <ProjectReference Include="../DotSpatial.Controls/Pandell.DotSpatial.Controls.csproj" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+</Project>

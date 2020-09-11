@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 
 namespace DotSpatial.NTSExtension
@@ -21,9 +20,9 @@ namespace DotSpatial.NTSExtension
         /// </summary>
         /// <param name="rawPoints">The coordinates that should be converted to points.</param>
         /// <returns>The resulting point array.</returns>
-        public static IPoint[] CastToPointArray(this IEnumerable<Coordinate> rawPoints)
+        public static Point[] CastToPointArray(this IEnumerable<Coordinate> rawPoints)
         {
-            List<IPoint> result = new List<IPoint>();
+            List<Point> result = new List<Point>();
             foreach (Coordinate rawPoint in rawPoints)
             {
                 result.Add(new Point(rawPoint));

@@ -1,0 +1,144 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Projections", "Source\DotSpatial.Projections\Pandell.DotSpatial.Projections.csproj", "{342E7825-2A66-452B-BB7B-9BCDF5FE03FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Projections.Tests", "Source\DotSpatial.Projections.Tests\Pandell.DotSpatial.Projections.Tests.csproj", "{E1931693-488C-49B6-8AD7-8E23A40CFC6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Projections.Forms", "Source\DotSpatial.Projections.Forms\Pandell.DotSpatial.Projections.Forms.csproj", "{F65F46FB-4A17-4969-A06A-D96B80DC4BD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Extensions", "Source\DotSpatial.Extensions\Pandell.DotSpatial.Extensions.csproj", "{89AF2537-87A2-4263-8118-951620ECAB2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Serialization", "Source\DotSpatial.Serialization\Pandell.DotSpatial.Serialization.csproj", "{F7E941FF-20C2-42AC-9416-82E567300BC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Serialization.Tests", "Source\DotSpatial.Serialization.Tests\Pandell.DotSpatial.Serialization.Tests.csproj", "{2BF0141E-AAC6-4F74-9F1F-59158D964F74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Tests.Common", "Source\DotSpatial.Tests.Common\Pandell.DotSpatial.Tests.Common.csproj", "{350288D8-B8CD-405F-9964-DADA9C7ECBB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.NTSExtension", "Source\DotSpatial.NTSExtension\Pandell.DotSpatial.NTSExtension.csproj", "{4D6A9DD3-6C93-4D9B-BE46-E9F1DCE0BBBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Data", "Source\DotSpatial.Data\Pandell.DotSpatial.Data.csproj", "{A97AF73B-6646-45B9-AF91-CF9762DA901D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Data.Tests", "Source\DotSpatial.Data.Tests\Pandell.DotSpatial.Data.Tests.csproj", "{3BB01521-07C3-4819-AC04-D158401B1202}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Data.Forms", "Source\DotSpatial.Data.Forms\Pandell.DotSpatial.Data.Forms.csproj", "{5A80EDB9-9461-4B69-91D5-AB0561199457}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Data.Rasters.GdalExtension", "Source\DotSpatial.Data.Rasters.GdalExtension\Pandell.DotSpatial.Data.Rasters.GdalExtension.csproj", "{C1AA7A75-DC1A-49C5-AB55-3EA09CCB31FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Symbology", "Source\DotSpatial.Symbology\Pandell.DotSpatial.Symbology.csproj", "{10963BB7-C920-4461-9B87-510A0DE81B00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Symbology.Tests", "Source\DotSpatial.Symbology.Tests\Pandell.DotSpatial.Symbology.Tests.csproj", "{894473CD-417F-4348-B567-79CEE765C77A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Symbology.Forms", "Source\DotSpatial.Symbology.Forms\Pandell.DotSpatial.Symbology.Forms.csproj", "{8A659C70-A1E6-43F4-936C-32A8F2FE89CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Modeling.Forms", "Source\DotSpatial.Modeling.Forms\Pandell.DotSpatial.Modeling.Forms.csproj", "{DC16FED8-96E8-4BAB-BDC6-30370E2A55D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Controls", "Source\DotSpatial.Controls\Pandell.DotSpatial.Controls.csproj", "{CA9A68DB-865E-42C5-A991-71B8CAC99068}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Controls.Tests", "Source\DotSpatial.Controls.Tests\Pandell.DotSpatial.Controls.Tests.csproj", "{485F846B-34B6-47FC-96B7-BCF64E2A4C19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Compatibility", "Source\DotSpatial.Compatibility\Pandell.DotSpatial.Compatibility.csproj", "{90A8187B-B21E-477B-8582-1C2877E1B39D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Analysis", "Source\DotSpatial.Analysis\Pandell.DotSpatial.Analysis.csproj", "{0027009B-07F3-4128-9F26-289FBB9A608D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pandell.DotSpatial.Analysis.Tests", "Source\DotSpatial.Analysis.Tests\Pandell.DotSpatial.Analysis.Tests.csproj", "{943F7EE6-8605-48AE-BC54-2C3D89ED814F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{342E7825-2A66-452B-BB7B-9BCDF5FE03FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{342E7825-2A66-452B-BB7B-9BCDF5FE03FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{342E7825-2A66-452B-BB7B-9BCDF5FE03FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{342E7825-2A66-452B-BB7B-9BCDF5FE03FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1931693-488C-49B6-8AD7-8E23A40CFC6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1931693-488C-49B6-8AD7-8E23A40CFC6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1931693-488C-49B6-8AD7-8E23A40CFC6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1931693-488C-49B6-8AD7-8E23A40CFC6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F65F46FB-4A17-4969-A06A-D96B80DC4BD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65F46FB-4A17-4969-A06A-D96B80DC4BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65F46FB-4A17-4969-A06A-D96B80DC4BD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65F46FB-4A17-4969-A06A-D96B80DC4BD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89AF2537-87A2-4263-8118-951620ECAB2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89AF2537-87A2-4263-8118-951620ECAB2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89AF2537-87A2-4263-8118-951620ECAB2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89AF2537-87A2-4263-8118-951620ECAB2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7E941FF-20C2-42AC-9416-82E567300BC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7E941FF-20C2-42AC-9416-82E567300BC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7E941FF-20C2-42AC-9416-82E567300BC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7E941FF-20C2-42AC-9416-82E567300BC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BF0141E-AAC6-4F74-9F1F-59158D964F74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BF0141E-AAC6-4F74-9F1F-59158D964F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BF0141E-AAC6-4F74-9F1F-59158D964F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BF0141E-AAC6-4F74-9F1F-59158D964F74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{350288D8-B8CD-405F-9964-DADA9C7ECBB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{350288D8-B8CD-405F-9964-DADA9C7ECBB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{350288D8-B8CD-405F-9964-DADA9C7ECBB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{350288D8-B8CD-405F-9964-DADA9C7ECBB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D6A9DD3-6C93-4D9B-BE46-E9F1DCE0BBBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D6A9DD3-6C93-4D9B-BE46-E9F1DCE0BBBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D6A9DD3-6C93-4D9B-BE46-E9F1DCE0BBBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D6A9DD3-6C93-4D9B-BE46-E9F1DCE0BBBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A97AF73B-6646-45B9-AF91-CF9762DA901D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A97AF73B-6646-45B9-AF91-CF9762DA901D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A97AF73B-6646-45B9-AF91-CF9762DA901D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A97AF73B-6646-45B9-AF91-CF9762DA901D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BB01521-07C3-4819-AC04-D158401B1202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BB01521-07C3-4819-AC04-D158401B1202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BB01521-07C3-4819-AC04-D158401B1202}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BB01521-07C3-4819-AC04-D158401B1202}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A80EDB9-9461-4B69-91D5-AB0561199457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A80EDB9-9461-4B69-91D5-AB0561199457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A80EDB9-9461-4B69-91D5-AB0561199457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A80EDB9-9461-4B69-91D5-AB0561199457}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1AA7A75-DC1A-49C5-AB55-3EA09CCB31FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1AA7A75-DC1A-49C5-AB55-3EA09CCB31FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1AA7A75-DC1A-49C5-AB55-3EA09CCB31FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1AA7A75-DC1A-49C5-AB55-3EA09CCB31FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10963BB7-C920-4461-9B87-510A0DE81B00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10963BB7-C920-4461-9B87-510A0DE81B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10963BB7-C920-4461-9B87-510A0DE81B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10963BB7-C920-4461-9B87-510A0DE81B00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{894473CD-417F-4348-B567-79CEE765C77A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{894473CD-417F-4348-B567-79CEE765C77A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{894473CD-417F-4348-B567-79CEE765C77A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{894473CD-417F-4348-B567-79CEE765C77A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A659C70-A1E6-43F4-936C-32A8F2FE89CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A659C70-A1E6-43F4-936C-32A8F2FE89CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A659C70-A1E6-43F4-936C-32A8F2FE89CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A659C70-A1E6-43F4-936C-32A8F2FE89CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC16FED8-96E8-4BAB-BDC6-30370E2A55D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC16FED8-96E8-4BAB-BDC6-30370E2A55D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC16FED8-96E8-4BAB-BDC6-30370E2A55D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC16FED8-96E8-4BAB-BDC6-30370E2A55D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA9A68DB-865E-42C5-A991-71B8CAC99068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA9A68DB-865E-42C5-A991-71B8CAC99068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA9A68DB-865E-42C5-A991-71B8CAC99068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA9A68DB-865E-42C5-A991-71B8CAC99068}.Release|Any CPU.Build.0 = Release|Any CPU
+		{485F846B-34B6-47FC-96B7-BCF64E2A4C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{485F846B-34B6-47FC-96B7-BCF64E2A4C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{485F846B-34B6-47FC-96B7-BCF64E2A4C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{485F846B-34B6-47FC-96B7-BCF64E2A4C19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90A8187B-B21E-477B-8582-1C2877E1B39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90A8187B-B21E-477B-8582-1C2877E1B39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90A8187B-B21E-477B-8582-1C2877E1B39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90A8187B-B21E-477B-8582-1C2877E1B39D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0027009B-07F3-4128-9F26-289FBB9A608D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0027009B-07F3-4128-9F26-289FBB9A608D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0027009B-07F3-4128-9F26-289FBB9A608D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0027009B-07F3-4128-9F26-289FBB9A608D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{943F7EE6-8605-48AE-BC54-2C3D89ED814F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943F7EE6-8605-48AE-BC54-2C3D89ED814F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943F7EE6-8605-48AE-BC54-2C3D89ED814F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943F7EE6-8605-48AE-BC54-2C3D89ED814F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal

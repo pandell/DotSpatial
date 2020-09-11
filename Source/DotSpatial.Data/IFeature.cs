@@ -3,7 +3,7 @@
 
 using System;
 using System.Data;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Data
 {
@@ -38,7 +38,7 @@ namespace DotSpatial.Data
         /// This will be enough geometry information to cast into a full fledged geometry
         /// that can be used in coordination with DotSpatial.Analysis
         /// </summary>
-        IGeometry Geometry { get; set; }
+        Geometry Geometry { get; set; }
 
         /// <summary>
         /// Gets or sets a reference to the IFeatureLayer that contains this item.

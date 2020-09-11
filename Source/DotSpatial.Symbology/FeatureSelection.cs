@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.Linq;
 using DotSpatial.Data;
 using DotSpatial.NTSExtension;
-using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Symbology
@@ -250,7 +249,7 @@ namespace DotSpatial.Symbology
                     }
                 }
 
-                IGeometry reg;
+                Geometry reg;
                 if (region.Width == 0 && region.Height == 0)
                 {
                     reg = new Point(region.MinX, region.MaxY);
@@ -267,7 +266,7 @@ namespace DotSpatial.Symbology
                     reg = region.ToPolygon();
                 }
 
-                IGeometry geom = f.Geometry;
+                Geometry geom = f.Geometry;
                 switch (SelectionMode)
                 {
                     case SelectionMode.Contains:
@@ -594,8 +593,8 @@ namespace DotSpatial.Symbology
                     }
                 }
 
-                IPolygon reg = region.ToPolygon();
-                IGeometry geom = f.Geometry;
+                Polygon reg = region.ToPolygon();
+                Geometry geom = f.Geometry;
                 switch (SelectionMode)
                 {
                     case SelectionMode.Contains:
@@ -741,8 +740,8 @@ namespace DotSpatial.Symbology
                     }
                 }
 
-                IPolygon reg = region.ToPolygon();
-                IGeometry geom = f.Geometry;
+                Polygon reg = region.ToPolygon();
+                Geometry geom = f.Geometry;
                 switch (SelectionMode)
                 {
                     case SelectionMode.Contains:

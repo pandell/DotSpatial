@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net48</TargetFrameworks>
+    <Description>Windows Forms controls for working with DotSpatial GIS objects.$(DescriptionPandellInfo)</Description>
+    <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="System.Resources.Extensions" Version="4.7.1" />
+    <ProjectReference Include="../DotSpatial.Projections.Forms/Pandell.DotSpatial.Projections.Forms.csproj" />
+    <ProjectReference Include="../DotSpatial.Symbology/Pandell.DotSpatial.Symbology.csproj" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+</Project>

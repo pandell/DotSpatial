@@ -1,0 +1,76 @@
+﻿<!--
+
+This file is automatically included in all projects under "Source" directory.
+
+Reference for customizing build with "Directory.Build.props":
+https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build
+
+Reference for shared build properties:
+https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#assemblyinfo-properties
+
+-->
+<Project>
+  <PropertyGroup>
+    <!--
+
+    Shared build properties -->
+    <AssemblyName>$(MSBuildProjectName.TrimStart('Pandell.'))</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <NoWarn>1591</NoWarn>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>../Pandell.DotSpatial.snk</AssemblyOriginatorKeyFile>
+    <RunSettingsFilePath>../Tests.runsettings</RunSettingsFilePath>
+    <IsPackable>True</IsPackable>
+    <IsPackable Condition=" $(MSBuildProjectName.EndsWith('.Tests')) ">False</IsPackable>
+    <IsTestProject>False</IsTestProject>
+    <IsTestProject Condition=" $(MSBuildProjectName.EndsWith('.Tests')) ">True</IsTestProject>
+    <DescriptionPandellInfo>
+
+Forked by Pandell to switch to the latest NetTopologySuite without GeoAPI dependency.
+    </DescriptionPandellInfo>
+    <!--
+
+    File version property.
+    TeamCity always sets environment variable "BUILD_NUMBER"
+    during build, we automatically use it as FileVersion if defined
+    (this value will be used as a basis for all other versions below) -->
+    <ContinuousIntegrationBuild Condition=" '$(BUILD_NUMBER)' != '' and '$(Configuration)' == 'Release' ">True</ContinuousIntegrationBuild>
+    <FileVersion Condition=" '$(FileVersion)' == '' and '$(BUILD_NUMBER)' != '' ">$(BUILD_NUMBER)</FileVersion>
+    <FileVersion Condition=" '$(FileVersion)' == '' ">0.0.0.0</FileVersion>
+    <!--
+
+    Derive remaining versions from FileVersion -->
+    <AssemblyVersion>$([System.Version]::Parse($(FileVersion)).ToString(2)).0.0</AssemblyVersion>
+    <InformationalVersion>$([System.Version]::Parse($(FileVersion)).ToString(3))</InformationalVersion>
+    <Company>DotSpatial</Company>
+    <Copyright>© 2012-$([System.DateTime]::Now.Year) DotSpatial Team and Pandell Technology Corporation. All rights reserved.</Copyright>
+    <Product>DotSpatial v$(InformationalVersion) ($(Configuration))</Product>
+    <NeutralLanguage>en</NeutralLanguage>
+    <!--
+
+    NuGet package properties
+    (https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties)
+    (for package version see https://docs.microsoft.com/en-us/nuget/concepts/package-versioning#pre-release-versions -->
+    <Authors>DotSpatial Team;Pandell</Authors>
+    <PackageId>$(MSBuildProjectName)</PackageId>
+    <PackageTags>GIS;Spatial;DotSpatial</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageVersion>$([System.Version]::Parse($(FileVersion)).ToString(3))</PackageVersion>
+    <PackageVersion Condition=" '$(IsExperimental)' != '' and $([System.Convert]::ToBoolean($(IsExperimental))) ">$(PackageVersion)-preview.$([System.Version]::Parse($(FileVersion)).Revision)</PackageVersion>
+    <PackageIcon>DotSpatial.png</PackageIcon>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <IncludeSource>True</IncludeSource>
+    <EmbedUntrackedSources>True</EmbedUntrackedSources>
+    <RepositoryUrl>https://github.com/pandell/DotSpatial</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <!--
+
+    Based on the following (official) NuGet example:
+    https://github.com/NuGet/Samples/blob/master/PackageIconExample/PackageIconExample.csproj
+    (note that image path is relative to .csproj file, not this .props file) -->
+    <None Include="../DotSpatial.png" Pack="True" Visible="False" PackagePath="" />
+  </ItemGroup>
+</Project>

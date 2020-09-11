@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using DotSpatial.NTSExtension;
 using DotSpatial.Projections;
-using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace DotSpatial.Data
 {
