@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="System.Resources.Extensions" Version="4.7.1" />
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
     <ProjectReference Include="../DotSpatial.Projections/Pandell.DotSpatial.Projections.csproj" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>

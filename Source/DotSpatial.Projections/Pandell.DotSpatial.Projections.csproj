@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
     <Description>For working with Projections and coordinate systems. A port of the popular proj4 C++ library to C#.$(DescriptionPandellInfo)</Description>
   </PropertyGroup>
 
