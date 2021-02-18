@@ -15,21 +15,24 @@ https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#assemblyinfo-propertie
 
     Shared build properties -->
     <AssemblyName>$(MSBuildProjectName.TrimStart('Pandell.'))</AssemblyName>
-    <RootNamespace>$(AssemblyName)</RootNamespace>
-    <NoWarn>1591</NoWarn>
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>../Pandell.DotSpatial.snk</AssemblyOriginatorKeyFile>
-    <RunSettingsFilePath>../Tests.runsettings</RunSettingsFilePath>
-    <IsPackable>True</IsPackable>
-    <IsPackable Condition=" $(MSBuildProjectName.EndsWith('.Tests')) ">False</IsPackable>
-    <IsTestProject>False</IsTestProject>
-    <IsTestProject Condition=" $(MSBuildProjectName.EndsWith('.Tests')) ">True</IsTestProject>
     <DescriptionPandellInfo>
 
 Forked by Pandell to switch to the latest NetTopologySuite without GeoAPI dependency.
     </DescriptionPandellInfo>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <IsPackable>True</IsPackable>
+    <IsPackable Condition=" $(MSBuildProjectName.EndsWith('.Tests')) ">False</IsPackable>
+    <IsTestProject>False</IsTestProject>
+    <IsTestProject Condition=" $(MSBuildProjectName.EndsWith('.Tests')) ">True</IsTestProject>
+    <LangVersion>8.0</LangVersion>
+    <NoWarn>1591</NoWarn>
+    <!--<Nullable>enable</Nullable> for more info about nullability see https://stackoverflow.com/a/57020770-->
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <RunSettingsFilePath>../Tests.runsettings</RunSettingsFilePath>
+    <SignAssembly>True</SignAssembly>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <VSTestNoLogo>True</VSTestNoLogo>
     <!--
 
     File version property.
@@ -43,11 +46,11 @@ Forked by Pandell to switch to the latest NetTopologySuite without GeoAPI depend
 
     Derive remaining versions from FileVersion -->
     <AssemblyVersion>$([System.Version]::Parse($(FileVersion)).ToString(2)).0.0</AssemblyVersion>
-    <InformationalVersion>$([System.Version]::Parse($(FileVersion)).ToString(3))</InformationalVersion>
     <Company>DotSpatial</Company>
     <Copyright>© 2012-$([System.DateTime]::Now.Year) DotSpatial Team and Pandell Technology Corporation. All rights reserved.</Copyright>
-    <Product>DotSpatial v$(InformationalVersion) ($(Configuration))</Product>
+    <InformationalVersion>$([System.Version]::Parse($(FileVersion)).ToString(3))</InformationalVersion>
     <NeutralLanguage>en</NeutralLanguage>
+    <Product>DotSpatial v$(InformationalVersion) ($(Configuration))</Product>
     <!--
 
     NuGet package properties
