@@ -1,20 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
     <Description>GIS Data objects for DotSpatial.$(DescriptionPandellInfo)</Description>
+    <IsPackable>true</IsPackable>
+    <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="all" Condition=" $(TargetFramework.StartsWith('net4')) " />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0" />
     <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
     <ProjectReference Include="../DotSpatial.Projections/Pandell.DotSpatial.Projections.csproj" />
     <ProjectReference Include="../DotSpatial.Serialization/Pandell.DotSpatial.Serialization.csproj" />
     <ProjectReference Include="../DotSpatial.NTSExtension/Pandell.DotSpatial.NTSExtension.csproj" />
+    <Reference Include="System.Data.DataSetExtensions" Condition=" $(TargetFramework.StartsWith('net4')) " />
   </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
-    <Reference Include="System.Data.DataSetExtensions" />
+  <!-- Transitive dependencies, detected via "dotnet-outdated -include-auto-references -transitive" -->
+  <ItemGroup>
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="5.0.1" />
   </ItemGroup>
 
 </Project>

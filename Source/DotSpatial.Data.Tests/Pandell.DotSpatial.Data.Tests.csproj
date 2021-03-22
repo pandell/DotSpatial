@@ -5,15 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="all" Condition=" $(TargetFramework.StartsWith('net4')) " />
     <PackageReference Include="NUnit" Version="2.7.1" />
     <PackageReference Include="NUnitTestAdapter" Version="2.3.0" />
     <ProjectReference Include="../DotSpatial.Data/Pandell.DotSpatial.Data.csproj" />
     <ProjectReference Include="../DotSpatial.Data.Rasters.GdalExtension/Pandell.DotSpatial.Data.Rasters.GdalExtension.csproj" />
     <ProjectReference Include="../DotSpatial.Tests.Common/Pandell.DotSpatial.Tests.Common.csproj" />
-  </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms" Condition=" $(TargetFramework.StartsWith('net4')) " />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48</TargetFrameworks>
-    <IsPackable>False</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="GDAL" Version="1.11.1" />
     <PackageReference Include="GDAL.Native" Version="1.11.1" />
     <PackageReference Include="GDAL.Plugins" Version="1.11.1" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="all" Condition=" $(TargetFramework.StartsWith('net4')) " />
     <ProjectReference Include="../DotSpatial.Controls/Pandell.DotSpatial.Controls.csproj" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms" Condition=" $(TargetFramework.StartsWith('net4')) " />
   </ItemGroup>
 
   <ItemGroup>

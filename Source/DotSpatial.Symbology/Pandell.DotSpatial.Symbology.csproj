@@ -1,13 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
     <Description>Customize map cartographic symbols.$(DescriptionPandellInfo)</Description>
     <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
+    <IsPackable>true</IsPackable>
+    <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="all" Condition=" $(TargetFramework.StartsWith('net4')) " />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="5.0.1" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
     <ProjectReference Include="../DotSpatial.Data/Pandell.DotSpatial.Data.csproj" />
